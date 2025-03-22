@@ -1,0 +1,80 @@
+<%- include('layout', { title: 'Login', body: `
+<div class="container-xxl py-5">
+  <div class="container px-lg-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <h2 class="text-center mb-4">Login to Your Account</h2>
+        <form action="/login" method="POST">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="rememberMe"
+              name="rememberMe"
+            />
+            <label class="form-check-label" for="rememberMe">Remember Me</label>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <p class="text-center mt-3">
+          <a href="/forgot-password">Forgot Password?</a>
+        </p>
+        <p class="text-center mt-2">
+          Don't have an account? <a href="/register">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+` }) %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      let isValid = true;
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      // Regular expression for email validation
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (!emailPattern.test(email)) {
+        alert("Enter a valid email address.");
+        isValid = false;
+      }
+
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
+        isValid = false;
+      }
+
+      if (isValid) {
+        form.submit(); // Submit only if valid
+      }
+    });
+  });
+</script>

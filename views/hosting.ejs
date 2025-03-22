@@ -1,0 +1,166 @@
+<%- include('layout', { title: 'Hosting', body: `
+<div class="container-xxl py-5 bg-primary hero-header mb-5">
+  <div class="container my-5 py-5 px-lg-5">
+    <div class="row g-5 pt-5">
+      <div class="col-12 text-center text-lg-start">
+        <h1 class="display-4 text-white animated slideInLeft">Hosting Plans</h1>
+        <nav aria-label="breadcrumb">
+          <ol
+            class="breadcrumb justify-content-center justify-content-lg-start animated slideInLeft"
+          >
+            <li class="breadcrumb-item">
+              <a class="text-white" href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="text-white" href="#">Pages</a>
+            </li>
+            <li class="breadcrumb-item text-white active" aria-current="page">
+              Hosting
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Screen Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content" style="background: rgba(29, 40, 51, 0.8)">
+      <div class="modal-header border-0">
+        <button
+          type="button"
+          class="btn bg-white btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex align-items-center justify-content-center">
+        <div class="input-group" style="max-width: 600px">
+          <input
+            type="text"
+            class="form-control bg-transparent border-light p-3"
+            placeholder="Type search keyword"
+          />
+          <button class="btn btn-light px-4">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Screen Search End -->
+
+<!-- Pricing Start -->
+<!-- Pricing Start -->
+<div class="container-xxl py-5">
+  <div class="container px-lg-5">
+    <div
+      class="section-title position-relative text-center mx-auto mb-5 pb-4 wow fadeInUp"
+      data-wow-delay="0.1s"
+      style="max-width: 600px"
+    >
+      <h1 class="mb-3">Our Hosting Plans</h1>
+      <p class="mb-1">
+        No matter your hosting requirements, our platform will fit your needs.
+      </p>
+    </div>
+    <div class="row gy-5 gx-4" id="plans"></div>
+  </div>
+</div>
+<!-- Pricing End -->
+
+<!-- Comparison Start -->
+<div class="container-xxl py-5">
+  <div class="container px-lg-5">
+    <div
+      class="section-title position-relative text-center mx-auto mb-5 pb-4 wow fadeInUp"
+      data-wow-delay="0.1s"
+      style="max-width: 600px"
+    >
+      <h1 class="mb-3">Baby plan VS Executive Server</h1>
+      <p class="mb-1">Explore our features</p>
+    </div>
+    <div class="row g-5 comparison position-relative">
+      <div class="col-lg-6 pe-lg-5">
+        <div class="section-title position-relative mx-auto mb-4 pb-4">
+          <h3 class="fw-bold mb-0">Baby plan Server</h3>
+        </div>
+        <div class="row gy-3 gx-5">
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+            <i class="fa fa-server fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">99.99% Uptime</h5>
+            <p>
+              Dedicated clusters, backups, and more. Our dedicated servers are
+              as reliable as it gets with 99.99% uptime, complete with the peace
+              of mind of 24/7 server monitoring.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+            <i class="fa fa-shield-alt fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">100% Secured</h5>
+            <p>
+              Free SSL certificates offer 2048-bit encryption – keeping you and
+              your customers secure.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+            <i class="fa fa-cog fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">Control Panel</h5>
+            <p>
+              Host your apps, build custom stacks, and choose your control panel
+              and OS.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
+            <i class="fa fa-headset fa-3x text-primary mb-3"></i>
+            <h5 class="fw-bold">24/7 Support</h5>
+            <p>Your customer service team of experts are available 24/7/365.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 ps-lg-5">
+        <div class="section-title position-relative mx-auto mb-4 pb-4">
+          <h3 class="fw-bold mb-0">Executive plan Server</h3>
+        </div>
+        <div class="row gy-3 gx-5">
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+            <i class="fa fa-server fa-3x text-secondary mb-3"></i>
+            <h5 class="fw-bold">99.99% Uptime</h5>
+            <p>
+              In many cases, we can fix issues before you are even aware of
+              them, ensuring your website stays up and running smoothly at all
+              times.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+            <i class="fa fa-shield-alt fa-3x text-secondary mb-3"></i>
+            <h5 class="fw-bold">100% Secured</h5>
+            <p>
+              We provide 24/7 real-time security monitoring to actively detect
+              and respond to any potential vulnerabilities or threats, keeping
+              your Executive plan Server secure around the clock.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+            <i class="fa fa-cog fa-3x text-secondary mb-3"></i>
+            <h5 class="fw-bold">Control Panel</h5>
+            <p>
+              If you already have a Virtual Private Server elsewhere and want to
+              switch to Troyhost, our expert migration team will handle moving
+              all your cPanel accounts to our servers at no additional cost.
+            </p>
+          </div>
+          <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
+            <i class="fa fa-headset fa-3x text-secondary mb-3"></i>
+            <h5 class="fw-bold">24/7 Support</h5>
+            <p>Your customer service team of experts are available 24/7/365.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Comparison Start -->
+` }) %>

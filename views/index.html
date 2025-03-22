@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TroyHost</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl bg-white p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+
+      <!-- Navbar & Hero Start -->
+      <div class="container-xxl position-relative p-0">
+        <nav
+          class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+        >
+          <a href="" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-server me-3"></i>TroyHost</h1>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+              <a href="index.html" class="nav-item nav-link active">Home</a>
+              <a href="about.html" class="nav-item nav-link">About</a>
+              <a href="domain.html" class="nav-item nav-link">Domain</a>
+              <a href="hosting.html" class="nav-item nav-link">Hosting</a>
+              <div class="nav-item dropdown">
+                <a
+                  href="#"
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  >Pages</a
+                >
+                <div class="dropdown-menu m-0">
+                  <a href="team.html" class="dropdown-item">Our Team</a>
+                  <a href="testimonial.html" class="dropdown-item"
+                    >Testimonial</a
+                  >
+                  <a href="comparison.html" class="dropdown-item">Comparison</a>
+                </div>
+              </div>
+              <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+            <button
+              type="button"
+              class="btn text-secondary ms-3"
+              data-bs-toggle="modal"
+              data-bs-target="#searchModal"
+            >
+              <i class="fa fa-search"></i>
+            </button>
+            <a href="" class="btn btn-secondary py-2 px-4 ms-3">Register</a>
+          </div>
+        </nav>
+
+        <div class="container-xxl py-5 bg-primary hero-header mb-5">
+          <div class="container my-5 py-5 px-lg-5">
+            <div class="row g-5">
+              <div class="col-lg-6 pt-5 text-center text-lg-start">
+                <h1 class="display-4 text-white mb-4 animated slideInLeft">
+                  Baby plan Hosting
+                </h1>
+                <p class="text-white animated slideInLeft">
+                  Fast, Secure, & Eco-friendly Shared Hosting Troyhost Shared
+                  Hosting minimizes performance issues, offering enhanced speed
+                  and robust security solutions for your website.
+                </p>
+                <h1 class="text-white mb-4 animated slideInLeft">
+                  <small
+                    class="align-top fw-normal"
+                    style="font-size: 15px; line-height: 25px"
+                    >Starting:</small
+                  >
+                  <span>Ksh 11,034</span>
+                  <small
+                    class="align-bottom fw-normal"
+                    style="font-size: 15px; line-height: 33px"
+                    >/ Yr</small
+                  >
+                </h1>
+                <a
+                  href=""
+                  class="btn btn-secondary py-sm-3 px-sm-5 me-3 animated slideInLeft"
+                  >Get Started Now</a
+                >
+              </div>
+              <div class="col-lg-6 text-center text-lg-start">
+                <img
+                  class="img-fluid animated zoomIn"
+                  src="img/hero.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navbar & Hero End -->
+
+      <!-- Full Screen Search Start -->
+      <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content" style="background: rgba(29, 40, 51, 0.8)">
+            <div class="modal-header border-0">
+              <button
+                type="button"
+                class="btn bg-white btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="modal-body d-flex align-items-center justify-content-center"
+            >
+              <div class="input-group" style="max-width: 600px">
+                <input
+                  type="text"
+                  class="form-control bg-transparent border-light p-3"
+                  placeholder="Type search keyword"
+                />
+                <button class="btn btn-light px-4">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Full Screen Search End -->
+
+      <!-- Domain Search Start -->
+      <div class="container-xxl domain mb-5" style="margin-top: 90px">
+        <div class="container px-lg-5">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div
+                class="section-title position-relative text-center mx-auto mb-4 pb-4 wow fadeInUp"
+                data-wow-delay="0.1s"
+                style="max-width: 600px"
+              >
+                <h1 class="mb-3">Search Your Domain</h1>
+                <p class="mb-1">
+                  Our domain manager makes it easy to update, transfer, purchase
+                  and manage your domains in one place.
+                </p>
+              </div>
+              <div
+                class="position-relative w-100 my-3 wow fadeInUp"
+                data-wow-delay="0.3s"
+              >
+                <input
+                  class="form-control bg-transparent w-100 py-3 ps-4 pe-5"
+                  type="text"
+                  placeholder="Enter your domain name"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Search
+                </button>
+              </div>
+              <div class="row g-3 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.com</h5>
+                  <p class="mb-0">Ksh 2,500/year</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.co.ke</h5>
+                  <p class="mb-0">Ksh 1,000/year</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.org</h5>
+                  <p class="mb-0">Ksh 2,500/year</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.africa</h5>
+                  <p class="mb-0">Ksh 1,500/year</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.xyz</h5>
+                  <p class="mb-0">Ksh 900/year</p>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
+                  <h5 class="fw-bold text-primary mb-1">.net</h5>
+                  <p class="mb-0">Ksh 2,700/year</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Domain Search End -->
+
+      <!-- About Start -->
+      <div class="container-xxl py-5">
+        <div class="container px-lg-5">
+          <div class="row g-5 align-items-center">
+            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.1s">
+              <div class="section-title position-relative mb-4 pb-4">
+                <h1 class="mb-2">Welcome to TroyHost</h1>
+              </div>
+              <p class="mb-4">
+                A leader in eco-friendly web hosting services. Over 5 years ago,
+                we set out to provide powerful web hosting services to small
+                businesses while allowing them to make a positive impact on the
+                environment.
+              </p>
+              <div class="row g-3">
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                  <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
+                    <h2 class="mb-1" data-toggle="counter-up">54</h2>
+                    <p class="mb-0">Experts</p>
+                  </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                  <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                    <h2 class="mb-1" data-toggle="counter-up">1212</h2>
+                    <p class="mb-0">Clients</p>
+                  </div>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                  <div class="bg-light rounded text-center p-4">
+                    <i class="fa fa-check fa-2x text-primary mb-2"></i>
+                    <h2 class="mb-1" data-toggle="counter-up">280</h2>
+                    <p class="mb-0">Projects</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <img
+                class="img-fluid wow zoomIn"
+                data-wow-delay="0.5s"
+                src="img/about.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- About End -->
+
+      <!-- Pricing Start -->
+      <div class="container-xxl py-5">
+        <div class="container px-lg-5">
+          <div
+            class="section-title position-relative text-center mx-auto mb-5 pb-4 wow fadeInUp"
+            data-wow-delay="0.1s"
+            style="max-width: 600px"
+          >
+            <h1 class="mb-3">Our Hosting Plans</h1>
+            <p class="mb-1">
+              No matter your hosting requirements, our platform will fit your
+              needs.
+            </p>
+          </div>
+          <div class="row gy-5 gx-4" id="plans"></div>
+        </div>
+      </div>
+      <!-- Pricing End -->
+
+      <!-- Comparison Start -->
+      <div class="container-xxl py-5">
+        <div class="container px-lg-5">
+          <div
+            class="section-title position-relative text-center mx-auto mb-5 pb-4 wow fadeInUp"
+            data-wow-delay="0.1s"
+            style="max-width: 600px"
+          >
+            <h1 class="mb-3">Baby plan VS Executive Server</h1>
+            <p class="mb-1">Explore our features</p>
+          </div>
+          <div class="row g-5 comparison position-relative">
+            <div class="col-lg-6 pe-lg-5">
+              <div class="section-title position-relative mx-auto mb-4 pb-4">
+                <h3 class="fw-bold mb-0">Baby plan Server</h3>
+              </div>
+              <div class="row gy-3 gx-5">
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                  <i class="fa fa-server fa-3x text-primary mb-3"></i>
+                  <h5 class="fw-bold">99.99% Uptime</h5>
+                  <p>
+                    Dedicated clusters, backups, and more. Our dedicated servers
+                    are as reliable as it gets with 99.99% uptime, complete with
+                    the peace of mind of 24/7 server monitoring.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                  <i class="fa fa-shield-alt fa-3x text-primary mb-3"></i>
+                  <h5 class="fw-bold">100% Secured</h5>
+                  <p>
+                    Free SSL certificates offer 2048-bit encryption – keeping
+                    you and your customers secure.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                  <i class="fa fa-cog fa-3x text-primary mb-3"></i>
+                  <h5 class="fw-bold">Control Panel</h5>
+                  <p>
+                    Host your apps, build custom stacks, and choose your control
+                    panel and OS.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
+                  <i class="fa fa-headset fa-3x text-primary mb-3"></i>
+                  <h5 class="fw-bold">24/7 Support</h5>
+                  <p>
+                    Your customer service team of experts are available
+                    24/7/365.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+              <div class="section-title position-relative mx-auto mb-4 pb-4">
+                <h3 class="fw-bold mb-0">Executive plan Server</h3>
+              </div>
+              <div class="row gy-3 gx-5">
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                  <i class="fa fa-server fa-3x text-secondary mb-3"></i>
+                  <h5 class="fw-bold">99.99% Uptime</h5>
+                  <p>
+                    In many cases, we can fix issues before you are even aware
+                    of them, ensuring your website stays up and running smoothly
+                    at all times.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                  <i class="fa fa-shield-alt fa-3x text-secondary mb-3"></i>
+                  <h5 class="fw-bold">100% Secured</h5>
+                  <p>
+                    We provide 24/7 real-time security monitoring to actively
+                    detect and respond to any potential vulnerabilities or
+                    threats, keeping your Executive plan Server secure around
+                    the clock.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                  <i class="fa fa-cog fa-3x text-secondary mb-3"></i>
+                  <h5 class="fw-bold">Control Panel</h5>
+                  <p>
+                    If you already have a Virtual Private Server elsewhere and
+                    want to switch to Troyhost, our expert migration team will
+                    handle moving all your cPanel accounts to our servers at no
+                    additional cost.
+                  </p>
+                </div>
+                <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
+                  <i class="fa fa-headset fa-3x text-secondary mb-3"></i>
+                  <h5 class="fw-bold">24/7 Support</h5>
+                  <p>
+                    Your customer service team of experts are available
+                    24/7/365.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Comparison Start -->
+
+      <!-- Testimonial Start -->
+      <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container px-lg-5">
+          <div class="owl-carousel testimonial-carousel">
+            <div
+              class="testimonial-item position-relative bg-light border-top border-5 border-primary rounded p-4 my-4"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 ms-5 translate-middle bg-primary rounded-circle"
+                style="width: 45px; height: 45px; margin-top: -3px"
+              >
+                <i class="fa fa-quote-left text-white"></i>
+              </div>
+              <p class="mt-3">
+                This group provides excellent service follow up and take the
+                time to understand your issues and tailor their support to
+                successfully meet your needs. Their follow up is matched to your
+                level of understanding and they tailor their support accordingly
+              </p>
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-fluid flex-shrink-0 rounded-circle"
+                  src="img/testimonial-1.jpg"
+                  style="width: 50px; height: 50px"
+                />
+                <div class="ps-3">
+                  <h6 class="fw-bold mb-1">Client Name</h6>
+                  <small>Profession</small>
+                </div>
+              </div>
+            </div>
+            <div
+              class="testimonial-item position-relative bg-light border-top border-5 border-primary rounded p-4 my-4"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 ms-5 translate-middle bg-primary rounded-circle"
+                style="width: 45px; height: 45px; margin-top: -3px"
+              >
+                <i class="fa fa-quote-left text-white"></i>
+              </div>
+              <p class="mt-3">
+                Troyhost is my hosting hero! It’s completely
+                stress-free—rock-solid servers mean no 404 errors or downtime
+                worries, just pure peace of mind. I rarely need support, but
+                when I tested them, their customer service was lightning-fast
+                and genuinely kind, solving issues in a snap. Plus, their
+                eco-friendly vibe makes me proud to be a customer. Love it!
+              </p>
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-fluid flex-shrink-0 rounded-circle"
+                  src="img/testimonial-2.jpg"
+                  style="width: 50px; height: 50px"
+                />
+                <div class="ps-3">
+                  <h6 class="fw-bold mb-1">Client Name</h6>
+                  <small>Profession</small>
+                </div>
+              </div>
+            </div>
+            <div
+              class="testimonial-item position-relative bg-light border-top border-5 border-primary rounded p-4 my-4"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 ms-5 translate-middle bg-primary rounded-circle"
+                style="width: 45px; height: 45px; margin-top: -3px"
+              >
+                <i class="fa fa-quote-left text-white"></i>
+              </div>
+              <p class="mt-3">
+                Troyhost Support is always great. They address 95% of my issues
+                on the first chat. Support is easy to contact and there is
+                rarely a wait time beyond a few seconds.
+              </p>
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-fluid flex-shrink-0 rounded-circle"
+                  src="img/testimonial-3.jpg"
+                  style="width: 50px; height: 50px"
+                />
+                <div class="ps-3">
+                  <h6 class="fw-bold mb-1">Client Name</h6>
+                  <small>Profession</small>
+                </div>
+              </div>
+            </div>
+            <div
+              class="testimonial-item position-relative bg-light border-top border-5 border-primary rounded p-4 mt-4"
+            >
+              <div
+                class="d-flex align-items-center justify-content-center position-absolute top-0 start-0 ms-5 translate-middle bg-primary rounded-circle"
+                style="width: 45px; height: 45px; margin-top: -3px"
+              >
+                <i class="fa fa-quote-left text-white"></i>
+              </div>
+              <p class="mt-3">
+                I have been using Troyhost as the host for all my websites for
+                many years. Besides the reliability and high performance host
+                service, their support is exceptionally great as well. All my
+                requests are dealt with immediately. I must give their service a
+                five star. I would recommend their service to anyone who needs
+                high performance, cost effective and responsible host service!!!
+              </p>
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-fluid flex-shrink-0 rounded-circle"
+                  src="img/testimonial-4.jpg"
+                  style="width: 50px; height: 50px"
+                />
+                <div class="ps-3">
+                  <h6 class="fw-bold mb-1">Client Name</h6>
+                  <small>Profession</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Testimonial End -->
+
+      <!-- Team Start -->
+      <div class="container-xxl py-5">
+        <div class="container px-lg-5">
+          <div
+            class="section-title position-relative text-center mx-auto mb-5 pb-4 wow fadeInUp"
+            data-wow-delay="0.1s"
+            style="max-width: 600px"
+          >
+            <h1 class="mb-3">Our Team Members</h1>
+            <p class="mb-1">
+              We look forward to your business and to serving your web hosting
+              needs.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+              <div
+                class="team-item border-top border-5 border-primary rounded shadow overflow-hidden"
+              >
+                <div class="text-center p-4">
+                  <img
+                    class="img-fluid rounded-circle mb-4"
+                    src="img/team-1.jpg"
+                    alt=""
+                  />
+                  <h5 class="fw-bold mb-1">Full Name</h5>
+                  <small>Designation</small>
+                </div>
+                <div class="d-flex justify-content-center bg-primary p-3">
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+              <div
+                class="team-item border-top border-5 border-primary rounded shadow overflow-hidden"
+              >
+                <div class="text-center p-4">
+                  <img
+                    class="img-fluid rounded-circle mb-4"
+                    src="img/team-2.jpg"
+                    alt=""
+                  />
+                  <h5 class="fw-bold mb-1">Full Name</h5>
+                  <small>Designation</small>
+                </div>
+                <div class="d-flex justify-content-center bg-primary p-3">
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+              <div
+                class="team-item border-top border-5 border-primary rounded shadow overflow-hidden"
+              >
+                <div class="text-center p-4">
+                  <img
+                    class="img-fluid rounded-circle mb-4"
+                    src="img/team-3.jpg"
+                    alt=""
+                  />
+                  <h5 class="fw-bold mb-1">Full Name</h5>
+                  <small>Designation</small>
+                </div>
+                <div class="d-flex justify-content-center bg-primary p-3">
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+              <div
+                class="team-item border-top border-5 border-primary rounded shadow overflow-hidden"
+              >
+                <div class="text-center p-4">
+                  <img
+                    class="img-fluid rounded-circle mb-4"
+                    src="img/team-4.jpg"
+                    alt=""
+                  />
+                  <h5 class="fw-bold mb-1">Full Name</h5>
+                  <small>Designation</small>
+                </div>
+                <div class="d-flex justify-content-center bg-primary p-3">
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-twitter"></i
+                  ></a>
+                  <a class="btn btn-square text-primary bg-white m-1" href=""
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Team End -->
+
+      <!-- Footer Start -->
+      <div
+        class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"
+        data-wow-delay="0.1s"
+      >
+        <div class="container py-5 px-lg-5">
+          <div class="row gy-5 gx-4 pt-5">
+            <div class="col-12">
+              <h5 class="fw-bold text-white mb-4">Subscribe Our Newsletter</h5>
+              <div class="position-relative" style="max-width: 400px">
+                <input
+                  class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5"
+                  type="text"
+                  placeholder="Enter your email"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-12">
+              <div class="row gy-5 g-4">
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-white mb-4">About Us</h5>
+                  <a class="btn btn-link" href="">About Us</a>
+                  <a class="btn btn-link" href="">Contact Us</a>
+                  <a class="btn btn-link" href="">Privacy Policy</a>
+                  <a class="btn btn-link" href="">Terms & Condition</a>
+                  <a class="btn btn-link" href="">Support</a>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="fw-bold text-white mb-4">Our Services</h5>
+                  <a class="btn btn-link" href="">Domain Register</a>
+                  <a class="btn btn-link" href="">Baby plan Hosting</a>
+                  <a class="btn btn-link" href="">Business plan Hosting</a>
+                  <a class="btn btn-link" href="">Executive Hosting</a>
+                  <a class="btn btn-link" href="">Reseller Hosting</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <h5 class="fw-bold text-white mb-4">Get In Touch</h5>
+              <p class="mb-2">
+                <i class="fa fa-map-marker-alt me-3"></i>Mt. View,Westlands,NRB
+              </p>
+              <p class="mb-2">
+                <i class="fa fa-phone-alt me-3"></i>+254113094450
+              </p>
+              <p class="mb-2">
+                <i class="fa fa-envelope me-3"></i>info@troycityafrica.com
+              </p>
+              <div class="d-flex pt-2">
+                <a class="btn btn-outline-light btn-social" href=""
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a class="btn btn-outline-light btn-social" href=""
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a class="btn btn-outline-light btn-social" href=""
+                  ><i class="fab fa-youtube"></i
+                ></a>
+                <a class="btn btn-outline-light btn-social" href=""
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mt-lg-n5">
+              <div class="bg-light rounded" style="padding: 30px">
+                <input
+                  type="text"
+                  class="form-control border-0 py-2 mb-2"
+                  placeholder="Name"
+                />
+                <input
+                  type="email"
+                  class="form-control border-0 py-2 mb-2"
+                  placeholder="Email"
+                />
+                <textarea
+                  class="form-control border-0 mb-2"
+                  rows="2"
+                  placeholder="Message"
+                ></textarea>
+                <button class="btn btn-primary w-100 py-2">Send Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container px-lg-5">
+          <div class="copyright">
+            <div class="row">
+              <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                &copy; <a class="border-bottom" href="#">Troyhost</a>, All Right
+                Reserved.
+
+                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                Designed By
+                <a class="border-bottom" href="https://www.troycityafrica.com"
+                  >Troycity Africa</a
+                >
+              </div>
+              <div class="col-md-6 text-center text-md-end">
+                <div class="footer-menu">
+                  <a href="">Home</a>
+                  <a href="">Cookies</a>
+                  <a href="">Help</a>
+                  <a href="">FQAs</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("/api/hosting")
+          .then((response) => response.json())
+          .then((plans) => {
+            let plansContainer = document.getElementById("plans");
+            plansContainer.innerHTML = ""; // Clear existing content
+
+            plans.forEach((plan, index) => {
+              let borderColor =
+                index === 1 ? "border-secondary" : "border-primary";
+              let icon =
+                index === 0
+                  ? "fa-share-alt"
+                  : index === 1
+                  ? "fa-server"
+                  : "fa-cog";
+              let buttonColor = index === 1 ? "btn-secondary" : "btn-primary";
+
+              let planHTML = `
+                  <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.${
+                    2 + index
+                  }s">
+                    <div class="position-relative shadow rounded border-top border-5 ${borderColor}">
+                      <div class="d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle bg-primary rounded-circle" style="width: 45px; height: 45px; margin-top: -3px">
+                        <i class="fa ${icon} text-white"></i>
+                      </div>
+                      <div class="text-center border-bottom p-4 pt-5">
+                        <h4 class="fw-bold">${plan.name}</h4>
+                        <p class="mb-0">${plan.description}</p>
+                      </div>
+                      <div class="text-center border-bottom p-4">
+                        <p class="text-primary mb-1">Latest Offer - <strong>${
+                          plan.discount
+                        }</strong></p>
+                        <h1 class="mb-3">
+                          <small class="align-top" style="font-size: 22px; line-height: 45px">${
+                            plan.currency
+                          }</small>
+                          ${plan.price}
+                          <small class="align-bottom" style="font-size: 16px; line-height: 40px">/ Year</small>
+                        </h1>
+                        <a class="btn ${buttonColor} px-4 py-2" href="#">Buy Now</a>
+                      </div>
+                      <div class="p-4">
+                        ${plan.features
+                          .map(
+                            (feature) => `<p class="border-bottom pb-3">
+                                            <i class="fa fa-check text-primary me-3"></i>${feature}
+                                          </p>`
+                          )
+                          .join("")}
+                      </div>
+                    </div>
+                  </div>
+                `;
+
+              plansContainer.innerHTML += planHTML;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching hosting plans:", error)
+          );
+      });
+    </script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
