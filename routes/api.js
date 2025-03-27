@@ -246,9 +246,57 @@ router.get("/update-invoice/:invoiceId", (req, res) => {
   });
 });
 
+// Function to update transaction
+const updateTransaction = (status, phone, trans_id, trans_date, amount) => {
+  try {
+    let transactions = readInvoiceData();
+    let transaction = transactions.find((t) => t.phone === phone);
+
+    if (transaction) {
+      transaction.status = status;
+      transaction.trans_id = trans_id;
+      transaction.trans_date = trans_date;
+      transaction.amount = amount;
+    }
+
+    // Save updated transactions
+    fs.writeFileSync(dataFilePath, JSON.stringify(transactions, null, 2));
+    console.log("Transaction updated successfully");
+  } catch (error) {
+    console.error("Error updating transaction:", error);
+  }
+};
+
+// Callback Route
 router.post("/callback", (req, res) => {
-  console.log("Callback received:", req.body);
-  res.json({ success: true });
+  try {
+    const callbackData = req.body;
+    let status, amount, trans_id, trans_date, phone;
+
+    if (!callbackData.Body.stkCallback.CallbackMetadata) {
+      console.log("M-Pesa Callback Error:", callbackData.Body.stkCallback);
+      status = "Error";
+      trans_id = callbackData.Body.stkCallback.MerchantRequestID || "Unknown";
+      res.json({ message: "Received error callback" });
+      return;
+    }
+
+    // Extracting data from callback
+    const metadata = callbackData.Body.stkCallback.CallbackMetadata.Item;
+    amount = metadata[0]?.Value || 0;
+    trans_id = metadata[1]?.Value || "Unknown";
+    trans_date = metadata[2]?.Value || new Date().toISOString();
+    phone = metadata[3]?.Value || "Unknown";
+    status = "Success";
+
+    // Update transaction in JSON file
+    updateTransaction(status, phone, trans_id, trans_date, amount);
+
+    res.json({ message: "Callback received and processed successfully" });
+  } catch (error) {
+    console.error("Error processing callback:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 router.get("/download-invoice/:invoiceId", (req, res) => {
