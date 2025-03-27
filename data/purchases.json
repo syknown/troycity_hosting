@@ -894,5 +894,22 @@
     "secondaryNameserver": "N/A",
     "tertiaryNameserver": "N/A",
     "date": "2025-03-27T12:35:55.941Z"
+  },
+  {
+    "invoiceId": "INV-39C57D18",
+    "name": "Collins Kandie",
+    "email": "collinskandie1@gmail.com",
+    "phone": "0714241600",
+    "company": "Syknown Technologies Limited",
+    "address": "Kerarapon Drive",
+    "city": "Nairobi",
+    "country": "Kenya",
+    "selected_package": "Baby Plan Hosting",
+    "package_cost": "11,034",
+    "domainName": "kolab.ae",
+    "primaryNameserver": "N/A",
+    "secondaryNameserver": "N/A",
+    "tertiaryNameserver": "N/A",
+    "date": "2025-03-27T13:56:13.941Z"
   }
 ]
