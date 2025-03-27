@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Purchase Plan' %>
+    </title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet" />
+    <link
+      href="/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-xxl bg-white p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="container-xxl position-relative p-0">
+        <nav
+          class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0"
+        >
+          <a href="" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-server me-3"></i>TroyHost</h1>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+              <a href="/" class="nav-item nav-link active">Home</a>
+              <a href="/about" class="nav-item nav-link">About</a>
+              <a href="/domain" class="nav-item nav-link">Domain</a>
+              <a href="/hosting" class="nav-item nav-link">Hosting</a>
+              <a href="/contact" class="nav-item nav-link">Contact</a>
+            </div>
+            <button
+              type="button"
+              class="btn text-secondary ms-3"
+              data-bs-toggle="modal"
+              data-bs-target="#searchModal"
+            >
+              <i class="fa fa-search"></i>
+            </button>
+            <a href="/register" class="btn btn-secondary py-2 px-4 ms-3"
+              >Register</a
+            >
+            <a href="/login" class="btn btn-primary py-2 px-4 ms-3">Login</a>
+          </div>
+        </nav>
+      </div>
+      <% if (package) { %>
+      <div class="container-xxl py-5 bg-primary hero-header mb-5">
+        <div class="container my-5 py-5 px-lg-5">
+          <div class="row g-5">
+            <div class="col-lg-6 pt-5 text-center text-lg-start">
+              <h1 class="display-4 text-white mb-4 animated slideInLeft">
+                <%= package.name %>
+              </h1>
+              <p class="text-white animated slideInLeft">
+                <%= package.description %>
+              </p>
+              <ul>
+                <% package.features.forEach(feature => { %>
+                <li><%= feature %></li>
+                <% }); %>
+              </ul>
+              <h1 class="text-white mb-4 animated slideInLeft">
+                <small
+                  class="align-top fw-normal"
+                  style="font-size: 15px; line-height: 25px"
+                  >Starting:</small
+                >
+                <span><%= package.price %></span>
+                <small
+                  class="align-bottom fw-normal"
+                  style="font-size: 15px; line-height: 33px"
+                  >/ Yr</small
+                >
+              </h1>
+              <a
+                href="#purchase-form"
+                class="btn btn-secondary py-sm-3 px-sm-5 me-3 animated slideInLeft"
+                >Purchase Now</a
+              >
+            </div>
+            <div class="col-lg-6 text-center text-lg-start">
+              <img
+                class="img-fluid animated zoomIn"
+                src="/img/hero.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-xxl py-5" id="purchase-form">
+        <div class="container px-lg-5">
+          <h1 class="mb-3">Order Details</h1>
+          <hr />
+          <div class="row g-5">
+            <p>Contact and Billing Details</p>
+            <div class="col-lg-7 col-md-6">
+              <div class="wow fadeInUp" data-wow-delay="0.2s">
+                <form id="purchaseForm">
+                  <div class="row g-3">
+                    <!-- Personal / Business Information -->
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          placeholder="Your Name"
+                          required
+                        />
+                        <label for="name">Your Name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="Your Email"
+                          required
+                        />
+                        <label for="email">Your Email</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone"
+                          placeholder="Phone Number"
+                          required
+                        />
+                        <label for="phone">Phone Number</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="company"
+                          placeholder="Company Name (Optional)"
+                        />
+                        <label for="company">Company Name (Optional)</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="address"
+                          placeholder="Address"
+                          required
+                        />
+                        <label for="address">Address</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="city"
+                          placeholder="City"
+                          required
+                        />
+                        <label for="city">City</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <select class="form-control" id="country" required>
+                          <option value="" selected disabled>
+                            Select Country
+                          </option>
+                          <option value="Kenya">Kenya</option>
+                          <option value="United States">United States</option>
+                          <option value="United Kingdom">United Kingdom</option>
+                          <!-- Add more countries as needed -->
+                        </select>
+                        <label for="country">Country</label>
+                      </div>
+                    </div>
+
+                    <!-- Domain Selection -->
+                    <div class="col-12">
+                      <label class="form-label">Domain Selection</label>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="domainOption"
+                          id="newDomain"
+                          value="new"
+                          required
+                        />
+                        <label class="form-check-label" for="newDomain">
+                          Register a new domain
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="domainOption"
+                          id="transferDomain"
+                          value="transfer"
+                        />
+                        <label class="form-check-label" for="transferDomain">
+                          Transfer your domain from another registrar
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="domainOption"
+                          id="existingDomain"
+                          value="existing"
+                        />
+                        <label class="form-check-label" for="existingDomain">
+                          I will use my existing domain and update my
+                          nameservers
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="domainName"
+                          placeholder="Enter Domain Name"
+                          required
+                        />
+                        <label for="domainName">Enter Domain Name</label>
+                      </div>
+                    </div>
+
+                    <!-- Nameserver Configuration (Hidden by Default) -->
+                    <div
+                      class="col-12"
+                      id="nameserverSection"
+                      style="display: none"
+                    >
+                      <label class="form-label">Custom Nameservers</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="primaryNameserver"
+                        placeholder="Primary Nameserver (e.g., ns1.yourhost.com)"
+                      />
+                      <input
+                        type="text"
+                        class="form-control mt-2"
+                        id="secondaryNameserver"
+                        placeholder="Secondary Nameserver (e.g., ns2.yourhost.com)"
+                      />
+                    </div>
+
+                    <!-- Hosting Plan Selection -->
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          id="package"
+                          type="text"
+                          class="form-control mt-2"
+                          value="<%= package.name %>"
+                          readonly
+                        />
+                        <label for="hostingPlan">Selected Package</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input
+                          id="package_cost"
+                          type="text"
+                          class="form-control mt-2"
+                          value="<%= package.price %>"
+                          readonly
+                        />
+                        <label for="hostingPlan"
+                          >Selected Package Cost <%= package.price %>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Security & Privacy -->
+                    <div class="col-12">
+                      <label class="form-label">Security & Privacy</label>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="privacyProtection"
+                        />
+                        <label class="form-check-label" for="privacyProtection">
+                          Enable Domain Privacy Protection (Hide WHOIS
+                          Information)
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="autoRenew"
+                        />
+                        <label class="form-check-label" for="autoRenew">
+                          Enable Auto-Renewal
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Payment Details -->
+                    <div class="col-12">
+                      <label class="form-label">Payment Method</label>
+                      <div class="form-floating">
+                        <select
+                          class="form-control"
+                          id="paymentMethod"
+                          required
+                        >
+                          <option value="M-Pesa" selected disabled>
+                            Select Payment Method
+                          </option>
+                          <option value="M-Pesa">M-Pesa</option>
+                          <!-- <option value="Credit Card">Credit Card</option>
+                        <option value="PayPal">PayPal</option> -->
+                        </select>
+                        <label for="paymentMethod">Choose Payment Method</label>
+                      </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100 py-3" type="submit">
+                        Submit Order
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+              <div class="section-title position-relative mx-auto mb-4 pb-4">
+                <h3 class="fw-bold mb-0"><%= package.name %></h3>
+              </div>
+              <p class="text-white animated slideInLeft">
+                <%= package.description %>
+              </p>
+              <ol>
+                <% package.features.forEach(feature => { %>
+                <li><%= feature %></li>
+                <% }); %>
+              </ol>
+              <div class="border rounded text-center p-4 mt-4">
+                <h6 class="fw-bold mb-4">Package Cost</h6>
+                <span><%= package.price %></span>
+              </div>
+              <hr />
+              <div class="section-title position-relative mx-auto mb-4 pb-4">
+                <h3 class="fw-bold mb-0">Customer Support</h3>
+              </div>
+              <p class="mb-2">
+                <i class="fa fa-map-marker-alt text-primary me-3"></i>Mt.
+                View,Westlands,NRB
+              </p>
+              <p class="mb-2">
+                <i class="fa fa-phone-alt text-primary me-3"></i>+254113094450
+              </p>
+              <p class="mb-2">
+                <i class="fa fa-envelope text-primary me-3"></i
+                >info@troycityafrica.com
+              </p>
+              <div class="border rounded text-center p-4 mt-4">
+                <h3 class="fw-bold mb-4">Need Any Help?</h3>
+                <a class="btn btn-primary py-3 px-5" href="tel:254113094450"
+                  >Let's Chat</a
+                >
+              </div>
+            </div>
+            <div
+              class="col-lg-5 col-md-6 wow fadeInUp"
+              data-wow-delay="0.5s"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <% } else { %>
+      <div class="container-xxl py-5 bg-primary hero-header mb-5">
+        <div class="container my-5 py-5 px-lg-5">
+          <p>404 Package not found.</p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <!-- Footer Start -->
+    <div
+      class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"
+      data-wow-delay="0.1s"
+    >
+      <div class="container py-5 px-lg-5">
+        <div class="row gy-5 gx-4 pt-5">
+          <div class="col-12">
+            <h5 class="fw-bold text-white mb-4">Subscribe Our Newsletter</h5>
+            <div class="position-relative" style="max-width: 400px">
+              <input
+                class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5"
+                type="text"
+                placeholder="Enter your email"
+              />
+              <button
+                type="button"
+                class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-12">
+            <div class="row gy-5 g-4">
+              <div class="col-md-6">
+                <h5 class="fw-bold text-white mb-4">About Us</h5>
+                <a class="btn btn-link" href="/about">About Us</a>
+                <a class="btn btn-link" href="/contact">Contact Us</a>
+                <h5 class="fw-bold text-white mb-4">Our Services</h5>
+                <a class="btn btn-link" href="/domain">Domain Register</a>
+                <a class="btn btn-link" href="/hostining">Baby plan Hosting</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h5 class="fw-bold text-white mb-4">Get In Touch</h5>
+            <p class="mb-2">
+              <i class="fa fa-map-marker-alt me-3"></i>Mt. View,Westlands,NRB
+            </p>
+            <p class="mb-2">
+              <i class="fa fa-phone-alt me-3"></i>+254113094450
+            </p>
+            <p class="mb-2">
+              <i class="fa fa-envelope me-3"></i>info@troycityafrica.com
+            </p>
+            <div class="d-flex pt-2">
+              <a class="btn btn-outline-light btn-social" href=""
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a class="btn btn-outline-light btn-social" href=""
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a class="btn btn-outline-light btn-social" href=""
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a class="btn btn-outline-light btn-social" href=""
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mt-lg-n5">
+            <div class="bg-light rounded" style="padding: 30px">
+              <input
+                type="text"
+                class="form-control border-0 py-2 mb-2"
+                placeholder="Name"
+              />
+              <input
+                type="email"
+                class="form-control border-0 py-2 mb-2"
+                placeholder="Email"
+              />
+              <textarea
+                class="form-control border-0 mb-2"
+                rows="2"
+                placeholder="Message"
+              ></textarea>
+              <button class="btn btn-primary w-100 py-2">Send Message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container px-lg-5">
+        <div class="copyright">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+              &copy; <a class="border-bottom" href="#">Troyhost</a>, All Right
+              Reserved.
+
+              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+              Designed By
+              <a class="border-bottom" href="https://www.troycityafrica.com"
+                >Troycity Africa</a
+              >
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+              <div class="footer-menu">
+                <a href="/">Home</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- Footer End -->
+
+      <!-- Back to Top -->
+      <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"
+        ><i class="bi bi-arrow-up"></i
+      ></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const existingDomainOption = document.getElementById("existingDomain");
+        const nameserverSection = document.getElementById("nameserverSection");
+
+        document
+          .querySelectorAll("input[name='domainOption']")
+          .forEach((radio) => {
+            radio.addEventListener("change", function () {
+              if (existingDomainOption.checked) {
+                nameserverSection.style.display = "block";
+              } else {
+                nameserverSection.style.display = "none";
+              }
+            });
+          });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("purchaseForm")
+          .addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Collect form data
+            const formData = {
+              name: document.getElementById("name").value,
+              email: document.getElementById("email").value,
+              phone: document.getElementById("phone").value,
+              company: document.getElementById("company").value || null,
+              address: document.getElementById("address").value,
+              city: document.getElementById("city").value,
+              country: document.getElementById("country").value,
+              selected_package: document.getElementById("package").value,
+              package_cost: document.getElementById("package_cost").value,
+              domainName: document.getElementById("domainName").value,
+              primaryNameserver:
+                document.getElementById("primaryNameserver")?.value || null,
+              secondaryNameserver:
+                document.getElementById("secondaryNameserver")?.value || null,
+            };
+            console.loh;
+
+            try {
+              // Send data to API
+              const response = await fetch("/api/newhosting", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+              });
+
+              if (response.ok) {
+                const result = await response.json();
+                console.log(
+                  `Order submitted successfully! Invoice ID: ${result.invoiceId}`
+                );
+                // ✅ Redirect to order summary page with invoiceId as a query parameter
+                window.location.href = `/order-summary/${result.invoiceId}`;
+              } else {
+                alert("Failed to submit order. Please try again.");
+              }
+            } catch (error) {
+              console.error("Error submitting order:", error);
+              alert("An error occurred. Please try again.");
+            }
+          });
+      });
+    </script>
+
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>

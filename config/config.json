@@ -2,7 +2,7 @@
     "development": {
       "username": "root",
       "password": "root",
-      "database": "limebow",
+      "database": "troycity",
       "host": "localhost",
       "dialect": "mysql"
     },
@@ -16,7 +16,7 @@
     "production": {
       "username": "root",
       "password": "root",
-      "database": "limebow",
+      "database": "troycity",
       "host": "localhost",
       "dialect": "mysql"
     }
