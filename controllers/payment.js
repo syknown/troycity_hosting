@@ -44,9 +44,7 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
     const token = await generateToken();
     const transid = "TRANS-" + uuidv4().slice(0, 8).toUpperCase();
     const mpesa_no = mpesano.substring(1);
-    const amount = parseInt(cost, 10);
-    console.log(amount, mpesa_no);
-
+    const amount = parseInt(cost.replace(/,/g, ""), 10);
     // Create initial transaction record
     const transaction = {
       status: "pending",
@@ -78,7 +76,6 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
     const password = Buffer.from(shortcode + passkey + timestamp).toString(
       "base64"
     );
-
     const mpesaResponse = await axios.post(
       // "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
       "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest",

@@ -44,6 +44,9 @@ router.get("/register", (req, res) => {
 router.get("/login", (req, res) => {
   res.render("login");
 });
+router.get("/admin/plans", (req, res) => {
+  res.render("newplans");
+});
 router.get("/payment-sucess/:invoiceId", (req, res) => {
   try {
     const invoiceId = req.params.invoiceId || req.query.invoiceId;
