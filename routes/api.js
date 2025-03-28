@@ -17,7 +17,6 @@ const BASE_URL = "https://api.godaddy.com/v1";
 const DATA_FILE = path.join(__dirname, "../data/purchases.json");
 const invoicesFile = path.join(__dirname, "../data/payments.json");
 
-// Function to read existing data
 const readData = () => {
   if (!fs.existsSync(DATA_FILE)) return [];
   const data = fs.readFileSync(DATA_FILE, "utf8");

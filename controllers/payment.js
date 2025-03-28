@@ -32,7 +32,6 @@ async function generateToken() {
         },
       }
     );
-
     return response.data.access_token;
   } catch (error) {
     console.error("Error generating token:", error.message);
@@ -40,7 +39,6 @@ async function generateToken() {
     throw new Error("Failed to generate M-Pesa token");
   }
 }
-
 async function newMpesa(cost, invoiceno, mpesano, selected_package) {
   try {
     const token = await generateToken();
