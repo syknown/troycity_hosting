@@ -23,12 +23,8 @@ async function generateToken() {
     const consumerKey = process.env.MPESA_CONSUMER_KEY;
     const auth = Buffer.from(`${consumerKey}:${secret}`).toString("base64");
 
-    console.log("Auth:", auth);
-    console.log("Consumer Key:", consumerKey);
-    console.log("Consumer Secret:", secret);
-
     const response = await axios.get(
-      "https://api.safaricom.co.ke/oauth/v1/generate",
+      "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       // "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       {
         headers: {
@@ -77,9 +73,9 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
       ("0" + date.getMinutes()).slice(-2) +
       ("0" + date.getSeconds()).slice(-2);
 
-    const shortcode = process.env.MPESA_BUYGOODS;
+    const shortcode = process.env.MPESA_PAYBILL;
     const passkey = process.env.MPESA_PASSKEY;
-    const till = process.env.MPESA_TILL;
+    const till = process.env.MPESA_PAYBILL;
 
     const password = Buffer.from(shortcode + passkey + timestamp).toString(
       "base64"
