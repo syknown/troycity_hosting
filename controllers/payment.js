@@ -6,14 +6,10 @@ const path = require("path");
 
 const DATA_FILE = path.join(__dirname, "../data/payments.json");
 
-const MPESA_PAYBILL = process.env.MPESA_PASSKEY || 4083313;
-const MPESA_PASSKEY =
-  process.env.MPESA_PASSKEY ||
-  "8531669c50b3e21bf912c8919dede2c4d0a8e40cd5e0b69eb968b42704c54808";
-const MPESA_CONSUMER_KEY =
-  process.env.MPESA_CONSUMER_KEY || "3FiOGz5XHM1pzC0Y7E4SZtGaL4xT5IT9";
-const MPESA_CONSUMER_SECRET =
-  process.env.MPESA_CONSUMER_SECRET || "2e1ZAH1u2GgYxxr2";
+const MPESA_PAYBILL = 4083313;
+const MPESA_PASSKEY =  "8531669c50b3e21bf912c8919dede2c4d0a8e40cd5e0b69eb968b42704c54808";
+const MPESA_CONSUMER_KEY = "3FiOGz5XHM1pzC0Y7E4SZtGaL4xT5IT9";
+const MPESA_CONSUMER_SECRET = "2e1ZAH1u2GgYxxr2";
 // Function to read existing data
 const readData = () => {
   if (!fs.existsSync(DATA_FILE)) return [];

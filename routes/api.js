@@ -10,8 +10,8 @@ const { newMpesa } = require("../controllers/payment");
 
 require("dotenv").config();
 
-const GODADDY_API_KEY = process.env.GODADDY_API_KEY;
-const GODADDY_SECRET = process.env.GODADDY_SECRET;
+const GODADDY_API_KEY = "3mM44Ywf1Ab6hL_RPrxxJEinSbaiiM6AGk1fr";
+const GODADDY_SECRET = "6mHhmfPb7f6meMwrM5cj5g";
 const BASE_URL = "https://api.godaddy.com/v1";
 
 const DATA_FILE = path.join(__dirname, "../data/purchases.json");
