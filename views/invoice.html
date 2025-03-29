@@ -45,7 +45,6 @@
         background: white;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative;
       }
       .header {
         display: flex;
@@ -94,22 +93,20 @@
       .transactions {
         margin-top: 20px;
       }
-      .status-ribbon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: red;
+      .status {
         color: white;
-        padding: 10px 30px;
-        font-weight: bold;
-        font-size: 14px;
-        transform: rotate(45deg);
-        transform-origin: top right;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        padding: 5px 10px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        transform: rotate(30deg);
+        border-radius: 5px; /* Ensures rounded corners apply to all statuses */
       }
-
+      .red {
+        background-color: red !important;
+      }
       .green {
-        background: green;
+        background-color: green !important;
       }
     </style>
   </head>
@@ -128,9 +125,7 @@
           <p>TROYCITY AFRICA</p>
         </div>
       </div>
-      <div
-        class="status-ribbon <%= status.toUpperCase() === 'UNPAID' ? 'red' : 'green' %>"
-      >
+      <div class="status <%= status === 'UNPAID' ? 'red' : 'green' %>">
         <%= status %>
       </div>
 
