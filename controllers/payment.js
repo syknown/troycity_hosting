@@ -76,7 +76,7 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
 
     const shortcode = MPESA_PAYBILL;
     const passkey = MPESA_PASSKEY;
-    const till = env.MPESA_PAYBILL;
+    const till = MPESA_PAYBILL;
 
     const password = Buffer.from(shortcode + passkey + timestamp).toString(
       "base64"
