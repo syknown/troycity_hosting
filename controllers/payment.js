@@ -5,6 +5,15 @@ const fs = require("fs");
 const path = require("path");
 
 const DATA_FILE = path.join(__dirname, "../data/payments.json");
+
+const MPESA_PAYBILL = process.env.MPESA_PASSKEY || 4083313;
+const MPESA_PASSKEY =
+  process.env.MPESA_PASSKEY ||
+  "8531669c50b3e21bf912c8919dede2c4d0a8e40cd5e0b69eb968b42704c54808";
+const MPESA_CONSUMER_KEY =
+  process.env.MPESA_CONSUMER_KEY || "3FiOGz5XHM1pzC0Y7E4SZtGaL4xT5IT9";
+const MPESA_CONSUMER_SECRET =
+  process.env.MPESA_CONSUMER_SECRET || "2e1ZAH1u2GgYxxr2";
 // Function to read existing data
 const readData = () => {
   if (!fs.existsSync(DATA_FILE)) return [];
@@ -19,8 +28,8 @@ const saveData = (data) => {
 
 async function generateToken() {
   try {
-    const secret = process.env.MPESA_CONSUMER_SECRET;
-    const consumerKey = process.env.MPESA_CONSUMER_KEY;
+    const secret = MPESA_CONSUMER_SECRET;
+    const consumerKey = MPESA_CONSUMER_KEY;
     const auth = Buffer.from(`${consumerKey}:${secret}`).toString("base64");
 
     const response = await axios.get(
@@ -69,9 +78,9 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
       ("0" + date.getMinutes()).slice(-2) +
       ("0" + date.getSeconds()).slice(-2);
 
-    const shortcode = process.env.MPESA_PAYBILL;
-    const passkey = process.env.MPESA_PASSKEY;
-    const till = process.env.MPESA_PAYBILL;
+    const shortcode = MPESA_PAYBILL;
+    const passkey = MPESA_PASSKEY;
+    const till = env.MPESA_PAYBILL;
 
     const password = Buffer.from(shortcode + passkey + timestamp).toString(
       "base64"
@@ -88,7 +97,7 @@ async function newMpesa(cost, invoiceno, mpesano, selected_package) {
         PartyA: `254${mpesa_no}`,
         PartyB: till,
         PhoneNumber: `254${mpesa_no}`,
-        CallBackURL: "https://506d-197-248-146-143.ngrok-free.app/api/callback",
+        CallBackURL: "https://troyhost.troycityafrica.com/api/callback",
         AccountReference: `${invoiceno}`,
         TransactionDesc: `Payment of ${selected_package}`,
       },
