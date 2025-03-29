@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      TroyHost | <%= typeof title !== 'undefined' ? title : 'Order Summary' %>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Payment Summary' %>
     </title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -73,7 +73,7 @@
       }
 
       th {
-        background-color: green;
+        background-color: #007bff;
         color: white;
       }
 
@@ -153,48 +153,27 @@
           </p>
         </div>
       </div>
+      <div class="container my-5 py-5 px-lg-5">
+        <h2>Invoice Details</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Invoice ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Company</th>
+              <th>Country</th>
+              <th>Package</th>
+
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceTableBody"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="container my-5 py-5 px-lg-5">
-      <h2>Invoice Details</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Company</th>
-            <th>Country</th>
-            <th>Package</th>
-            <th>Cost</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="invoiceTableBody">
-          <tr>
-            <% purchases.forEach((purchase) =>{ %>
-            <td><%= purchase.invoiceId %></td>
-            <td><%= purchase.name %></td>
-            <td><%= purchase.email %></td>
-            <td><%= purchase.phone %></td>
-            <td><%= purchase.company %></td>
-            <td><%= purchase.country %></td>
-            <td><%= purchase.selected_package %></td>
-            <td><%= purchase.package_cost %></td>
-            <td><%= new Date(purchase.date).toLocaleString() %></td>
-            <td>
-              <a
-                href="/admin/purchases/<%= purchase.invoiceId %>"
-                class="btn btn-primary py-2 px-4 ms-3"
-                >View Details</a
-              >
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
+
     <!-- Footer Start -->
     <div
       class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"
@@ -318,5 +297,60 @@
     <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script>
+      const invoices = [
+        {
+          invoiceId: "INV-E5FF2600",
+          name: "Collins Kandie",
+          email: "collinskandie1@gmail.com",
+          phone: "0722545735",
+          company: "Syknown Technologies Limited",
+          address: "Kerarapon Drive",
+          city: "Nairobi",
+          country: "Kenya",
+          selected_package: "Baby Plan Hosting",
+          package_cost: "11,034",
+          domainName: "kolab.ae",
+          primaryNameserver: "N/A",
+          secondaryNameserver: "N/A",
+          tertiaryNameserver: "N/A",
+          date: "2025-03-28T16:40:47.411Z",
+        },
+        {
+          invoiceId: "INV-F121F1AB",
+          name: "Victor ",
+          email: "ceo@troycityafrica.com",
+          phone: "0113094450",
+          company: "Troycity",
+          address: "Waiyaki Way",
+          city: "Nairobi",
+          country: "Kenya",
+          selected_package: "Business Plan Hosting",
+          package_cost: "16,800",
+          domainName: "kolab.ae",
+          primaryNameserver: "N/A",
+          secondaryNameserver: "N/A",
+          tertiaryNameserver: "N/A",
+          date: "2025-03-28T16:45:41.560Z",
+        },
+      ];
+
+      const tableBody = document.getElementById("invoiceTableBody");
+
+      invoices.forEach((invoice) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+              <td>${invoice.invoiceId}</td>
+              <td>${invoice.name}</td>
+              <td>${invoice.email}</td>
+              <td>${invoice.phone}</td>
+              <td>${invoice.company}</td>           
+              <td>${invoice.country}</td>
+              <td>${invoice.selected_package}</td>                         
+              <td>${new Date(invoice.date).toLocaleString()}</td>
+          `;
+        tableBody.appendChild(row);
+      });
+    </script>
   </body>
 </html>

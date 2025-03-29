@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      TroyHost | <%= typeof title !== 'undefined' ? title : 'Order Summary' %>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Payment Summary' %>
     </title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -73,7 +73,7 @@
       }
 
       th {
-        background-color: green;
+        background-color: #007bff;
         color: white;
       }
 
@@ -153,48 +153,164 @@
           </p>
         </div>
       </div>
+      <div class="container my-5 py-5 px-lg-5">
+        <div class="col-lg-7 col-md-6">
+          <div class="wow fadeInUp" data-wow-delay="0.2s">
+            <!-- <form id="purchaseForm"> -->
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Your Name"
+                    value="<%= order.name %>"
+                    readonly
+                  />
+                  <label for="name">Your Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Your Email"
+                    readonly
+                    value="<%= order.email %>"
+                  />
+                  <label for="email">Your Email</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phone"
+                    placeholder="Phone Number"
+                    value="<%= order.phone %>"
+                    readonly
+                  />
+                  <label for="phone">Phone Number</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="company"
+                    placeholder="Company Name"
+                    readonly
+                    value="<%= order.company %>"
+                  />
+                  <label for="company">Company Name</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    placeholder="Address"
+                    value="<%= order.address %>"
+                    readonly
+                  />
+                  <label for="address">Address</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="city"
+                    placeholder="City"
+                    value="<%= order.city %>"
+                    readonly
+                  />
+                  <label for="city">City</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <select
+                    class="form-control"
+                    id="country"
+                    value="<% order.country %>"
+                    readonly
+                  >
+                    <option value="<% order.country %>" selected disabled>
+                      Kenya
+                    </option>
+                  </select>
+                  <label for="country">Country</label>
+                </div>
+              </div>
+              <!-- Domain Selection -->
+              <div class="col-12">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="domainName"
+                    placeholder="Enter Domain Name"
+                    value="<%= order.domainName %>"
+                    readonly
+                  />
+                  <label for="domainName">Enter Domain Name</label>
+                </div>
+              </div>
+
+              <!-- Hosting Plan Selection -->
+              <div class="col-12">
+                <div class="form-floating">
+                  <input
+                    id="package"
+                    type="text"
+                    class="form-control mt-2"
+                    value="<%= order.selected_package %>"
+                    readonly
+                  />
+                  <label for="hostingPlan">Selected Package</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input
+                    id="package_cost"
+                    type="text"
+                    class="form-control mt-2"
+                    value="<%= order.package_cost %>"
+                    readonly
+                  />
+                  <label for="hostingPlan">Selected Package Cost </label>
+                </div>
+              </div>
+              <!-- Payment Details -->
+              <div class="col-12">
+                <label class="form-label">Payment Method</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Choose Payment Method"
+                  value="M-Pesa"
+                  readonly
+                />
+                <!-- <label for="paymentMethod">Choose Payment Method</label> -->
+              </div>
+            </div>
+            <!-- Submit Button -->
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
     </div>
-    <div class="container my-5 py-5 px-lg-5">
-      <h2>Invoice Details</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Company</th>
-            <th>Country</th>
-            <th>Package</th>
-            <th>Cost</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="invoiceTableBody">
-          <tr>
-            <% purchases.forEach((purchase) =>{ %>
-            <td><%= purchase.invoiceId %></td>
-            <td><%= purchase.name %></td>
-            <td><%= purchase.email %></td>
-            <td><%= purchase.phone %></td>
-            <td><%= purchase.company %></td>
-            <td><%= purchase.country %></td>
-            <td><%= purchase.selected_package %></td>
-            <td><%= purchase.package_cost %></td>
-            <td><%= new Date(purchase.date).toLocaleString() %></td>
-            <td>
-              <a
-                href="/admin/purchases/<%= purchase.invoiceId %>"
-                class="btn btn-primary py-2 px-4 ms-3"
-                >View Details</a
-              >
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-    </div>
+
     <!-- Footer Start -->
     <div
       class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"

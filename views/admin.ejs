@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      TroyHost | <%= typeof title !== 'undefined' ? title : 'Order Summary' %>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Purchase Plan' %>
     </title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -43,54 +43,7 @@
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 20px;
-        padding: 20px;
-      }
-
-      h2 {
-        text-align: center;
-        color: #333;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-      th,
-      td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-
-      th {
-        background-color: green;
-        color: white;
-      }
-
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-
-      @media (max-width: 768px) {
-        table {
-          display: block;
-          overflow-x: auto;
-          white-space: nowrap;
-        }
-      }
-    </style>
   </head>
-
   <body>
     <div class="container-xxl bg-white p-0">
       <!-- Spinner Start -->
@@ -129,7 +82,7 @@
               <a href="/hosting" class="nav-item nav-link">Hosting</a>
               <a href="/contact" class="nav-item nav-link">Contact</a>
             </div>
-            <button
+            <!-- <button
               type="button"
               class="btn text-secondary ms-3"
               data-bs-toggle="modal"
@@ -141,60 +94,36 @@
               >Register</a
             >
             <a href="/login" class="btn btn-primary py-2 px-4 ms-3">Login</a>
-          </div>
+          </div> -->
         </nav>
       </div>
-
+      <hr />
       <div class="container-xxl py-5 bg-primary hero-header mb-5">
-        <div class="container py-5">
-          <h1 class="fw-bold text-white">Invoices Summary</h1>
-          <p class="text-white-50">
-            Below is a summary of all invoices generated on the platform.
-          </p>
-        </div>
+        <br />
+        <br />
+        <br />
       </div>
     </div>
-    <div class="container my-5 py-5 px-lg-5">
-      <h2>Invoice Details</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Company</th>
-            <th>Country</th>
-            <th>Package</th>
-            <th>Cost</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="invoiceTableBody">
-          <tr>
-            <% purchases.forEach((purchase) =>{ %>
-            <td><%= purchase.invoiceId %></td>
-            <td><%= purchase.name %></td>
-            <td><%= purchase.email %></td>
-            <td><%= purchase.phone %></td>
-            <td><%= purchase.company %></td>
-            <td><%= purchase.country %></td>
-            <td><%= purchase.selected_package %></td>
-            <td><%= purchase.package_cost %></td>
-            <td><%= new Date(purchase.date).toLocaleString() %></td>
-            <td>
-              <a
-                href="/admin/purchases/<%= purchase.invoiceId %>"
-                class="btn btn-primary py-2 px-4 ms-3"
-                >View Details</a
-              >
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+    <div class="container-xxl py-5 mb-5">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <a href="/admin/purchases" class="btn btn-secondary py-2 px-4 ms-3"
+        >Purchased Plans</a
+      >
+      <a href="/admin/payments" class="btn btn-primary py-2 px-4 ms-3"
+        >Payments Records</a
+      >
+
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
+
     <!-- Footer Start -->
     <div
       class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"
@@ -307,6 +236,7 @@
         ><i class="bi bi-arrow-up"></i
       ></a>
     </div>
+    <!-- </div> -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -316,6 +246,7 @@
     <script src="/lib/waypoints/waypoints.min.js"></script>
     <script src="/lib/counterup/counterup.min.js"></script>
     <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
   </body>

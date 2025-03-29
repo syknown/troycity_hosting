@@ -44,8 +44,78 @@ router.get("/register", (req, res) => {
 router.get("/login", (req, res) => {
   res.render("login");
 });
-router.get("/admin/plans", (req, res) => {
-  res.render("newplans");
+router.get("/admin", (req, res) => {
+  res.render("admin");
+});
+router.get("/admin/purchases", (req, res) => {
+  const purchases = readData();
+  // console.log("Purchases data:", purchases);
+  res.render("newplans", { purchases });
+});
+router.get("/admin/purchases/:invoiceId", (req, res) => {
+  try {
+    const invoiceId = req.params.invoiceId || req.query.invoiceId;
+    const orders = readData();
+    const order = orders.find((o) => o.invoiceId === invoiceId);
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Render success page
+    res.render("purchasedetails", { order });
+  } catch (error) {
+    console.error("Error processing payment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.get("/admin/payments", (req, res) => {
+  res.render("payments");
+});
+router.get("/payment-sucess/:invoiceId", (req, res) => {
+  try {
+    const invoiceId = req.params.invoiceId || req.query.invoiceId;
+    const orders = readData();
+    const order = orders.find((o) => o.invoiceId === invoiceId);
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    const invoiceData = {
+      invoiceId: order.invoiceId,
+      invoiceDate: order.date,
+      dueDate: order.date,
+      status: "PAID",
+      name: order.name,
+      customerEmail: order.email,
+      customerLocation: order.address,
+      items: [
+        { description: order.selected_package, amount: order.package_cost },
+        { description: `Domain free ${order.domainName}`, amount: 0 },
+      ],
+      total: order.package_cost,
+      balance: 0,
+      transactions: [],
+      message: "Payment successful",
+    };
+
+    generateInvoice(invoiceData);
+
+    if (order.status === "completed") {
+      return res.json({
+        success: true,
+        status: "completed",
+        message: "Payment successful",
+        data: order,
+      });
+    }
+
+    // Render success page
+    res.render("payment-sucess");
+  } catch (error) {
+    console.error("Error processing payment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 router.get("/payment-sucess/:invoiceId", (req, res) => {
   try {
