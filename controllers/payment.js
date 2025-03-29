@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { saveBase64Image } = require("./savefile");
+// const { saveBase64Image } = require("./savefile");
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const path = require("path");
@@ -284,26 +284,26 @@ async function createReceiptItems(items, invoiceNumber) {
     console.error(`Error creating ReceiptItems: ${error.message}`);
   }
 }
-async function createCustomization(customizationItems, invoiceNumber) {
-  try {
-    for (const item of customizationItems) {
-      var base64Image = customizationItems.newImages;
-      // Save the base64 image and get the file name
-      const savedImageName = saveBase64Image(base64Image);
-      const customization = await Customization.create({
-        productId: item.productId,
-        customization: item.customization,
-        invoiceNumber: invoiceNumber,
-        imageUrl: savedImageName, // Assuming you have a field to store the image URL or name
-      });
-      await customization.save();
-      console.log(`Customization created for product ID ${item.productId}`);
-    }
-    console.log("All Customization created and saved successfully.");
-  } catch (error) {
-    console.error(`Error creating Customization: ${error.message}`);
-  }
-}
+// async function createCustomization(customizationItems, invoiceNumber) {
+//   try {
+//     for (const item of customizationItems) {
+//       var base64Image = customizationItems.newImages;
+//       // Save the base64 image and get the file name
+//       const savedImageName = saveBase64Image(base64Image);
+//       const customization = await Customization.create({
+//         productId: item.productId,
+//         customization: item.customization,
+//         invoiceNumber: invoiceNumber,
+//         imageUrl: savedImageName, // Assuming you have a field to store the image URL or name
+//       });
+//       await customization.save();
+//       console.log(`Customization created for product ID ${item.productId}`);
+//     }
+//     console.log("All Customization created and saved successfully.");
+//   } catch (error) {
+//     console.error(`Error creating Customization: ${error.message}`);
+//   }
+// }
 function updateTransaction(status, latestTrans, trans) {
   Transaction.update(
     {
@@ -382,42 +382,42 @@ async function newCard(req, res) {
     res.status(500).json({ error: "Error addding customer" });
   }
 }
-async function saveDispatch(req, res) {
-  try {
-    const { invoiceNumber, deliveryPersonName, description, images } = req.body;
-    const imageFilenames = [];
-    const newStatus = "dispatched";
+// async function saveDispatch(req, res) {
+//   try {
+//     const { invoiceNumber, deliveryPersonName, description, images } = req.body;
+//     const imageFilenames = [];
+//     const newStatus = "dispatched";
 
-    if (req.body.images) {
-      for (const image of images) {
-        const imageData = image;
-        const newImageName = await saveBase64Image(imageData);
-        imageFilenames.push(newImageName);
-      }
-    }
-    const sale = await Sale.findByPk(invoiceNumber);
-    sale.status = newStatus;
+//     if (req.body.images) {
+//       for (const image of images) {
+//         const imageData = image;
+//         const newImageName = await saveBase64Image(imageData);
+//         imageFilenames.push(newImageName);
+//       }
+//     }
+//     const sale = await Sale.findByPk(invoiceNumber);
+//     sale.status = newStatus;
 
-    // Save the changes
-    await sale.save();
+//     // Save the changes
+//     await sale.save();
 
-    const newDispatch = await Dispatch.create({
-      invoiceNumber: invoiceNumber,
-      deliveryPersonName: deliveryPersonName,
-      description: description,
-      imageURL: imageFilenames,
-    });
+//     const newDispatch = await Dispatch.create({
+//       invoiceNumber: invoiceNumber,
+//       deliveryPersonName: deliveryPersonName,
+//       description: description,
+//       imageURL: imageFilenames,
+//     });
 
-    return res.status(201).json({
-      success: true,
-      message: "Items Successfully dispatched",
-      product: newDispatch,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error saving dispatch" });
-  }
-}
+//     return res.status(201).json({
+//       success: true,
+//       message: "Items Successfully dispatched",
+//       product: newDispatch,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Error saving dispatch" });
+//   }
+// }
 async function getDispatch(req, res) {
   try {
     const invoice = req.params.invoiceId;
