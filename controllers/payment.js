@@ -482,7 +482,6 @@ module.exports = {
   newMpesa,
   newCard,
   mpesaCallBack,
-  saveDispatch,
   getDispatch,
   savePayment,
   confirmPayment,

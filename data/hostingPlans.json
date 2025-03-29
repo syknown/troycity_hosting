@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "name": "Baby Plan Hosting",
         "description": "Cost effective and fast for small business",
         "price": "11,034",
@@ -17,6 +18,7 @@
         "buttonClass": "btn-primary"
     },
     {
+        "id": 2,
         "name": "Business Plan Hosting",
         "description": "For high traffic sites and large businesses",
         "price": "16,800",
@@ -34,6 +36,7 @@
         "buttonClass": "btn-secondary"
     },
     {
+        "id": 3,
         "name": "Executive Hosting",
         "description": "For largest sites and deployment",
         "price": "39,600",

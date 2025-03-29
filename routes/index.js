@@ -191,16 +191,19 @@ router.get("/payment-sucess/:invoiceId", (req, res) => {
   }
 });
 
-router.get("/purchase/:packageName", (req, res) => {
+router.get("/purchase/:id", (req, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return res.status(500).send("Failed to load hosting plans");
     }
 
+    console.log("Raw JSON data:", req.params.id);
+    const id = Number(req.params.id); // Convert to number
+
     const packages = JSON.parse(data);
-    const selectedPackage = packages.find(
-      (pkg) => pkg.name === req.params.packageName
-    );
+    console.log("Parsed packages:", packages);
+    const selectedPackage = packages.find((pkg) => pkg.id === id);
+    console.log("Selected package:", selectedPackage);
 
     if (!selectedPackage) {
       return res.status(404).send("Package not found");
@@ -209,6 +212,7 @@ router.get("/purchase/:packageName", (req, res) => {
     res.render("purchase", { package: selectedPackage });
   });
 });
+
 router.get("/order-summary/:invoiceId", (req, res) => {
   try {
     const invoiceId = req.params.invoiceId || req.query.invoiceId;
