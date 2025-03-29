@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      TroyHost | <%= typeof title !== 'undefined' ? title : 'Payment Summary' %>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Order Summary' %>
     </title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -73,7 +73,7 @@
       }
 
       th {
-        background-color: #007bff;
+        background-color: green;
         color: white;
       }
 
@@ -153,27 +153,36 @@
           </p>
         </div>
       </div>
-      <div class="container my-5 py-5 px-lg-5">
-        <h2>Invoice Details</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Invoice ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Company</th>
-              <th>Country</th>
-              <th>Package</th>
-
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="invoiceTableBody"></tbody>
-        </table>
-      </div>
     </div>
-
+    <div class="container my-5 py-5 px-lg-5">
+      <h2>Payment Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Invoice ID</th>
+            <th>Amount</th>
+            <th>Phone</th>
+            <th>Merchant ID</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="invoiceTableBody">
+          <tr>
+            <% payments.forEach((payment) =>{ %>
+            <td><%= payment.trans_id %></td>
+            <td><%= payment.invoice_id %></td>
+            <td><%= payment.amount %></td>
+            <td><%= payment.phone %></td>
+            <td><%= payment.MerchantRequestID %></td>
+            <td><%= payment.status %></td>
+            <td><%= new Date(payment.trans_date).toLocaleString() %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
     <!-- Footer Start -->
     <div
       class="container-fluid bg-primary text-white footer mt-5 pt-5 wow fadeIn"
@@ -264,7 +273,7 @@
               &copy; <a class="border-bottom" href="#">Troyhost</a>, All Right
               Reserved.
 
-              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can payment the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
               Designed By
               <a class="border-bottom" href="https://www.troycityafrica.com"
                 >Troycity Africa</a
@@ -297,60 +306,5 @@
     <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
-    <script>
-      const invoices = [
-        {
-          invoiceId: "INV-E5FF2600",
-          name: "Collins Kandie",
-          email: "collinskandie1@gmail.com",
-          phone: "0722545735",
-          company: "Syknown Technologies Limited",
-          address: "Kerarapon Drive",
-          city: "Nairobi",
-          country: "Kenya",
-          selected_package: "Baby Plan Hosting",
-          package_cost: "11,034",
-          domainName: "kolab.ae",
-          primaryNameserver: "N/A",
-          secondaryNameserver: "N/A",
-          tertiaryNameserver: "N/A",
-          date: "2025-03-28T16:40:47.411Z",
-        },
-        {
-          invoiceId: "INV-F121F1AB",
-          name: "Victor ",
-          email: "ceo@troycityafrica.com",
-          phone: "0113094450",
-          company: "Troycity",
-          address: "Waiyaki Way",
-          city: "Nairobi",
-          country: "Kenya",
-          selected_package: "Business Plan Hosting",
-          package_cost: "16,800",
-          domainName: "kolab.ae",
-          primaryNameserver: "N/A",
-          secondaryNameserver: "N/A",
-          tertiaryNameserver: "N/A",
-          date: "2025-03-28T16:45:41.560Z",
-        },
-      ];
-
-      const tableBody = document.getElementById("invoiceTableBody");
-
-      invoices.forEach((invoice) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-              <td>${invoice.invoiceId}</td>
-              <td>${invoice.name}</td>
-              <td>${invoice.email}</td>
-              <td>${invoice.phone}</td>
-              <td>${invoice.company}</td>           
-              <td>${invoice.country}</td>
-              <td>${invoice.selected_package}</td>                         
-              <td>${new Date(invoice.date).toLocaleString()}</td>
-          `;
-        tableBody.appendChild(row);
-      });
-    </script>
   </body>
 </html>

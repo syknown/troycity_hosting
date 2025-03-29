@@ -6,10 +6,16 @@ const { generateInvoice } = require("../controllers/main");
 
 const filePath = path.join(__dirname, "../data/hostingPlans.json");
 const DATA_FILE = path.join(__dirname, "../data/purchases.json");
+const invoicesFile = path.join(__dirname, "../data/payments.json");
 
 const readData = () => {
   if (!fs.existsSync(DATA_FILE)) return [];
   const data = fs.readFileSync(DATA_FILE, "utf8");
+  return data ? JSON.parse(data) : [];
+};
+const readInvoiceData = () => {
+  if (!fs.existsSync(invoicesFile)) return [];
+  const data = fs.readFileSync(invoicesFile, "utf8");
   return data ? JSON.parse(data) : [];
 };
 
@@ -49,7 +55,6 @@ router.get("/admin", (req, res) => {
 });
 router.get("/admin/purchases", (req, res) => {
   const purchases = readData();
-  // console.log("Purchases data:", purchases);
   res.render("newplans", { purchases });
 });
 router.get("/admin/purchases/:invoiceId", (req, res) => {
@@ -69,7 +74,25 @@ router.get("/admin/purchases/:invoiceId", (req, res) => {
   }
 });
 router.get("/admin/payments", (req, res) => {
-  res.render("payments");
+  const payments = readInvoiceData();
+  console.log(payments);
+  res.render("payments", { payments });
+});
+router.get("/admin/payments/:invoiceId", (req, res) => {
+  try {
+    const invoiceId = req.params.invoiceId || req.query.invoiceId;
+    const orders = readInvoiceData();
+    const order = orders.find((o) => o.invoiceId === invoiceId);
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Render success page
+    res.render("payments", { order });
+  } catch (error) {
+    console.error("Error processing payment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 router.get("/payment-sucess/:invoiceId", (req, res) => {
   try {
