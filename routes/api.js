@@ -110,12 +110,13 @@ router.get("/check-domain/:domain", async (req, res) => {
 });
 router.post("/customer-contact", async (req, res) => {
   const { name, email, subject, message } = req.body;
+  console.log("Received contact form data:", req.body);
 
   const newMessage = {
     id: uuidv4(),
     name,
     email,
-    subject,
+    subject: subject || "General Inquiry",
     message,
     date: new Date().toISOString(),
   };
@@ -147,6 +148,64 @@ router.post("/customer-contact", async (req, res) => {
            <p><strong>Email:</strong> ${email}</p>
            <p><strong>Subject:</strong> ${subject}</p>
            <p><strong>Message:</strong> ${message}</p>
+           <p><strong>Date:</strong> ${newMessage.date}</p>`,
+  };
+
+  try {
+    // Send email to customer
+    await transporter.sendMail(mailOptionsCustomer);
+
+    // Send email to admin
+    await transporter.sendMail(mailOptionsAdmin);
+
+    res.json({
+      status: 200,
+      success: true,
+      message: "Message saved and emails sent successfully!",
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ success: false, message: "Failed to send email." });
+  }
+});
+router.post("/newsletter", async (req, res) => {
+  const { email } = req.body;
+  console.log("Received contact form data:", req.body);
+
+  const newMessage = {
+    id: uuidv4(),
+    name: "Newsletter",
+    email,
+    subject: "General Inquiry",
+    message: "Subscribed to our Newsletter",
+    date: new Date().toISOString(),
+  };
+
+  // Read existing messages, append new message, and save
+  const messages = readMessages();
+  messages.push(newMessage);
+  saveMessages(messages);
+
+  // Email content for customer
+  const mailOptionsCustomer = {
+    from: `"TroyHost" <${EMAIL_USER}>`,
+    to: email,
+    subject: "Thank you for Subscribing to TroyHost Newsletter",
+    html: `<p>Dear Customer,</p>
+           <p>Thank your for subscribing to our newsletter</p>
+            <p>We will keep you updated with our latest offers and news.</p>
+           <p>Best regards,</p>
+           <p><strong>TroyHost Team</strong></p>`,
+  };
+
+  // Email content for admin
+  const mailOptionsAdmin = {
+    from: `"TroyHost" <${EMAIL_USER}>`,
+    to: "troyhost@troycityafrica.com",
+    cc: "ceo@troycityafrica.com",
+    subject: "New Newsletter subscriptiom",
+    html: `<p><strong>Name:</strong> ${""}</p>
+           <p><strong>Email:</strong> ${email}</p>          
            <p><strong>Date:</strong> ${newMessage.date}</p>`,
   };
 

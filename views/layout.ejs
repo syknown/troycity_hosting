@@ -129,17 +129,20 @@
           <div class="col-12">
             <h5 class="fw-bold text-white mb-4">Subscribe Our Newsletter</h5>
             <div class="position-relative" style="max-width: 400px">
-              <input
-                class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5"
-                type="text"
-                placeholder="Enter your email"
-              />
-              <button
-                type="button"
-                class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
-              >
-                Submit
-              </button>
+              <form id="newsletter">
+                <input
+                  class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5"
+                  type="text"
+                  id="subscribeemail"
+                  placeholder="Enter your email"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2"
+                >
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
           <div class="col-lg-5 col-md-12">
@@ -184,22 +187,29 @@
           </div>
           <div class="col-md-6 col-lg-4 mt-lg-n5">
             <div class="bg-light rounded" style="padding: 30px">
-              <input
-                type="text"
-                class="form-control border-0 py-2 mb-2"
-                placeholder="Name"
-              />
-              <input
-                type="email"
-                class="form-control border-0 py-2 mb-2"
-                placeholder="Email"
-              />
-              <textarea
-                class="form-control border-0 mb-2"
-                rows="2"
-                placeholder="Message"
-              ></textarea>
-              <button class="btn btn-primary w-100 py-2">Send Message</button>
+              <form id="footerMessage">
+                <input
+                  type="text"
+                  class="form-control border-0 py-2 mb-2"
+                  id="customername"
+                  placeholder="Name"
+                />
+                <input
+                  type="email"
+                  class="form-control border-0 py-2 mb-2"
+                  id="customeremail"
+                  placeholder="Email"
+                />
+                <textarea
+                  class="form-control border-0 mb-2"
+                  rows="2"
+                  placeholder="Message"
+                  id="customermessage"
+                ></textarea>
+                <button class="btn btn-primary w-100 py-2" type="submit">
+                  Send Message
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -353,6 +363,83 @@
             email: document.getElementById("email").value,
             subject: document.getElementById("subject").value,
             message: document.getElementById("message").value,
+          };
+
+          try {
+            // Send data to API
+            const response = await fetch("/api/customer-contact", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+            const result = await response.json();
+            // Show success or error message
+            const responseMessage = document.getElementById("responseMessage");
+            alert("Response: " + result.message); // Debugging line
+            if (result.status === 200 || result.success) {
+              responseMessage.innerHTML = `<div class="alert alert-success">Message sent successfully!</div>`;
+              document.getElementById("contactForm").reset();
+            } else {
+              responseMessage.innerHTML = `<div class="alert alert-danger">Error: ${result.message}</div>`;
+            }
+          } catch (error) {
+            document.getElementById(
+              "responseMessage"
+            ).innerHTML = `<div class="alert alert-danger">An error occurred: ${error.message}</div>`;
+          }
+        });
+    </script>
+    <script>
+      //submit news letter form
+      document
+        .getElementById("newsletter")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Collect form data
+          const formData = {
+            email: document.getElementById("subscribeemail").value,
+          };
+
+          try {
+            // Send data to API
+            const response = await fetch("/api/newsletter", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+            const result = await response.json();
+            // Show success or error message
+            const responseMessage = document.getElementById("responseMessage");
+            alert("Response: " + result.message); // Debugging line
+            if (result.status === 200 || result.success) {
+              responseMessage.innerHTML = `<div class="alert alert-success">Message sent successfully!</div>`;
+              document.getElementById("contactForm").reset();
+            } else {
+              responseMessage.innerHTML = `<div class="alert alert-danger">Error: ${result.message}</div>`;
+            }
+          } catch (error) {
+            document.getElementById(
+              "responseMessage"
+            ).innerHTML = `<div class="alert alert-danger">An error occurred: ${error.message}</div>`;
+          }
+        });
+    </script>
+    <script>
+      document
+        .getElementById("footerMessage")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Collect form data
+          const formData = {
+            name: document.getElementById("customername").value,
+            email: document.getElementById("customeremail").value,
+            message: document.getElementById("customermessage").value,
           };
 
           try {
