@@ -364,12 +364,11 @@
               },
               body: JSON.stringify(formData),
             });
-
             const result = await response.json();
-
             // Show success or error message
             const responseMessage = document.getElementById("responseMessage");
-            if (response.ok) {
+            alert("Response: " + result.message); // Debugging line
+            if (result.status === 200 || result.success) {
               responseMessage.innerHTML = `<div class="alert alert-success">Message sent successfully!</div>`;
               document.getElementById("contactForm").reset();
             } else {

@@ -158,6 +158,7 @@ router.post("/customer-contact", async (req, res) => {
     await transporter.sendMail(mailOptionsAdmin);
 
     res.json({
+      status: 200,
       success: true,
       message: "Message saved and emails sent successfully!",
     });
