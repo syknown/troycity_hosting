@@ -1,0 +1,12 @@
+[
+  {
+    "status": "completed",
+    "phone": "722545735",
+    "amount": 11034,
+    "invoice_id": "INV-CB0B15D3",
+    "trans_id": "TRANS-FC6B8827",
+    "trans_date": "2025-03-29T21:51:57.236Z",
+    "MerchantRequestID": "fb44-4d20-8534-5458fa8600d626776194",
+    "CheckoutRequestID": "ws_CO_30032025005157385722545735"
+  }
+]

@@ -7,6 +7,7 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 const { generateInvoice } = require("../controllers/main");
 const { newMpesa } = require("../controllers/payment");
+const whois = require("whois");
 
 require("dotenv").config();
 
@@ -43,26 +44,49 @@ router.get("/hosting", (req, res) => {
 });
 router.get("/check-domain/:domain", async (req, res) => {
   const domain = req.params.domain;
-  // console.log(req);
-  console.log(GODADDY_API_KEY);
-  console.log(GODADDY_SECRET);
+  // const { domain } = req.query;
+  // console.log("Domain:", domain);
   try {
-    console.log(`Authorization: sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`);
+    if (!domain) {
+      return res.status(400).json({ error: "Domain is required" });
+    }
 
     const response = await axios.get(
-      `${BASE_URL}/domains/available?domain=${domain}`,
-      {
-        headers: {
-          Authorization: `sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`,
-        },
-      }
+      `https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_nfAO30px6bd1He1ycpRueZK3kls1s&domainName=${domain}&credits=DA`
     );
-    res.json(response.data);
+    // console.log(response.data);
+    if (response.data.DomainInfo.domainAvailability === "AVAILABLE") {
+      res.json({ available: true });
+    } else {
+      res.json({ available: false });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error });
   }
 });
+// router.get("/check-domain/:domain", async (req, res) => {
+//   const domain = req.params.domain;
+//   // console.log(req);
+//   console.log(GODADDY_API_KEY);
+//   console.log(GODADDY_SECRET);
+//   try {
+//     console.log(`Authorization: sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`);
+
+//     const response = await axios.get(
+//       `${BASE_URL}/domains/available?domain=${domain}`,
+//       {
+//         headers: {
+//           Authorization: `sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`,
+//         },
+//       }
+//     );
+//     res.json(response.data);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: error });
+//   }
+// });
 router.post("/newhosting", (req, res) => {
   const {
     name,
