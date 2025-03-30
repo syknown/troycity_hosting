@@ -341,6 +341,48 @@
           }
         });
     </script>
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Collect form data
+          const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value,
+          };
+
+          try {
+            // Send data to API
+            const response = await fetch("/api/customer-contact", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            // Show success or error message
+            const responseMessage = document.getElementById("responseMessage");
+            if (response.ok) {
+              responseMessage.innerHTML = `<div class="alert alert-success">Message sent successfully!</div>`;
+              document.getElementById("contactForm").reset();
+            } else {
+              responseMessage.innerHTML = `<div class="alert alert-danger">Error: ${result.message}</div>`;
+            }
+          } catch (error) {
+            document.getElementById(
+              "responseMessage"
+            ).innerHTML = `<div class="alert alert-danger">An error occurred: ${error.message}</div>`;
+          }
+        });
+    </script>
+
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
   </body>

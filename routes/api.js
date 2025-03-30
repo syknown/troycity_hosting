@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
 const router = express.Router();
@@ -11,12 +12,29 @@ const whois = require("whois");
 
 require("dotenv").config();
 
-const GODADDY_API_KEY = "3mM44Ywf1Ab6hL_RPrxxJEinSbaiiM6AGk1fr";
-const GODADDY_SECRET = "6mHhmfPb7f6meMwrM5cj5g";
-const BASE_URL = "https://api.godaddy.com/v1";
+// Configure Nodemailer Transporter
+
+const EMAIL_HOST = "mail.troycityafrica.com";
+const EMAIL_PORT = 465;
+const EMAIL_USER = "troyhost@troycityafrica.com";
+const EMAIL_PASS = "!9OFkB)KH(9S";
+const EMAIL_SECURE = true; // true for 465, false for other ports
+// const EMAIL_FROM = "troyhost@troycityafrica.com";
+
+transporter = nodemailer.createTransport({
+  host: EMAIL_HOST,
+  port: EMAIL_PORT,
+  secure: EMAIL_SECURE, // true for 465, false for other ports
+  auth: {
+    user: EMAIL_USER,
+    pass: EMAIL_PASS,
+  },
+});
 
 const DATA_FILE = path.join(__dirname, "../data/purchases.json");
 const invoicesFile = path.join(__dirname, "../data/payments.json");
+// Path to JSON file
+const messagesFilePath = path.join(__dirname, "../data/messages.json");
 
 const readData = () => {
   if (!fs.existsSync(DATA_FILE)) return [];
@@ -32,6 +50,31 @@ const readInvoiceData = () => {
 // Function to save data
 const saveData = (data) => {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf8");
+};
+
+// Function to read messages from file
+const readMessages = () => {
+  try {
+    if (!fs.existsSync(messagesFilePath)) return []; // If file doesn't exist, return empty array
+    const data = fs.readFileSync(messagesFilePath, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading messages file:", error);
+    return [];
+  }
+};
+
+// Function to save messages to file
+const saveMessages = (messages) => {
+  try {
+    fs.writeFileSync(
+      messagesFilePath,
+      JSON.stringify(messages, null, 2),
+      "utf8"
+    );
+  } catch (error) {
+    console.error("Error saving messages file:", error);
+  }
 };
 
 router.get("/hosting", (req, res) => {
@@ -65,28 +108,65 @@ router.get("/check-domain/:domain", async (req, res) => {
     res.status(500).json({ error: error });
   }
 });
-// router.get("/check-domain/:domain", async (req, res) => {
-//   const domain = req.params.domain;
-//   // console.log(req);
-//   console.log(GODADDY_API_KEY);
-//   console.log(GODADDY_SECRET);
-//   try {
-//     console.log(`Authorization: sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`);
+router.post("/customer-contact", async (req, res) => {
+  const { name, email, subject, message } = req.body;
 
-//     const response = await axios.get(
-//       `${BASE_URL}/domains/available?domain=${domain}`,
-//       {
-//         headers: {
-//           Authorization: `sso-key ${GODADDY_API_KEY}:${GODADDY_SECRET}`,
-//         },
-//       }
-//     );
-//     res.json(response.data);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: error });
-//   }
-// });
+  const newMessage = {
+    id: uuidv4(),
+    name,
+    email,
+    subject,
+    message,
+    date: new Date().toISOString(),
+  };
+
+  // Read existing messages, append new message, and save
+  const messages = readMessages();
+  messages.push(newMessage);
+  saveMessages(messages);
+
+  // Email content for customer
+  const mailOptionsCustomer = {
+    from: `"TroyHost" <${EMAIL_USER}>`,
+    to: email,
+    subject: "Thank you for contacting TroyHost",
+    html: `<p>Dear ${name},</p>
+           <p>Thank you for reaching out to us. We have received your message and will get back to you shortly.</p>
+           <p><strong>Your Message:</strong> ${message}</p>
+           <p>Best regards,</p>
+           <p><strong>TroyHost Team</strong></p>`,
+  };
+
+  // Email content for admin
+  const mailOptionsAdmin = {
+    from: `"TroyHost" <${EMAIL_USER}>`,
+    to: "troyhost@troycityafrica.com",
+    cc: "ceo@troycityafrica.com",
+    subject: "New Customer Contact Form Submission",
+    html: `<p><strong>Name:</strong> ${name}</p>
+           <p><strong>Email:</strong> ${email}</p>
+           <p><strong>Subject:</strong> ${subject}</p>
+           <p><strong>Message:</strong> ${message}</p>
+           <p><strong>Date:</strong> ${newMessage.date}</p>`,
+  };
+
+  try {
+    // Send email to customer
+    await transporter.sendMail(mailOptionsCustomer);
+
+    // Send email to admin
+    await transporter.sendMail(mailOptionsAdmin);
+
+    res.json({
+      success: true,
+      message: "Message saved and emails sent successfully!",
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ success: false, message: "Failed to send email." });
+  }
+});
+
 router.post("/newhosting", (req, res) => {
   const {
     name,
