@@ -255,6 +255,8 @@
     <script src="/lib/waypoints/waypoints.min.js"></script>
     <script src="/lib/counterup/counterup.min.js"></script>
     <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         fetch("/api/hosting")
@@ -369,8 +371,6 @@
             ).innerHTML = `<p class="text-warning">⚠️ Error checking domain availability.</p>`;
           }
         });
-    </script>
-    <script>
       document
         .getElementById("contactForm")
         .addEventListener("submit", async function (event) {
@@ -487,8 +487,5 @@
           }
         });
     </script>
-
-    <!-- Template Javascript -->
-    <script src="/js/main.js"></script>
   </body>
 </html>
