@@ -3,12 +3,14 @@ const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
 const router = express.Router();
-const filePath = path.join(__dirname, "../data/hostingPlans.json");
+// const filePath = path.join(__dirname, "../data/hostingPlans.json");
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 const { generateInvoice } = require("../controllers/main");
 const { newMpesa } = require("../controllers/payment");
 const whois = require("whois");
+const { HostingPlans } = require("../models");
+const { Op } = require("sequelize");
 
 require("dotenv").config();
 
@@ -77,14 +79,66 @@ const saveMessages = (messages) => {
   }
 };
 
-router.get("/hosting", (req, res) => {
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to load hosting plans" });
+router.get("/hosting", async (req, res) => {
+  try {
+    const hostingPlans = await HostingPlans.findAll();
+    console.log("Hosting Plans:", hostingPlans);
+    if (!hostingPlans) {
+      return res.status(404).json({ error: "Hosting plans not found" });
     }
-    res.json(JSON.parse(data));
-  });
+    res.json(hostingPlans);
+  } catch (error) {
+    console.error("Error fetching hosting plans:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+router.post("/hosting", async (req, res) => {
+  const {
+    name,
+    description,
+    price,
+    currency,
+    per,
+    offer,
+    features,
+    icon,
+    buttonClass,
+  } = req.body;
+  try {
+    const newHostingPlan = await HostingPlans.create({
+      name,
+      description,
+      price,
+      currency,
+      per,
+      offer,
+      features,
+      icon,
+      buttonClass,
+    });
+    res.status(201).json(newHostingPlan);
+  } catch (error) {
+    console.error("Error creating hosting plan:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/hosting/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const hostingPlan = await HostingPlans.findOne({
+      where: { id },
+    });
+    if (!hostingPlan) {
+      return res.status(404).json({ error: "Hosting plan not found" });
+    }
+    res.json(hostingPlan);
+  } catch (error) {
+    console.error("Error fetching hosting plan:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 router.get("/check-domain/:domain", async (req, res) => {
   const domain = req.params.domain;
   // const { domain } = req.query;

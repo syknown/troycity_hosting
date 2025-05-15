@@ -1,31 +1,16 @@
 <%- include('layout', { title: 'Home', body: `
 <div class="container-xxl py-5 bg-primary hero-header mb-5">
-  <div class="container my-5 py-5 px-lg-5">
+  <div id="hero-hosting" class="container my-5 py-5 px-lg-5">
     <div class="row g-5">
       <div class="col-lg-6 pt-5 text-center text-lg-start">
-        <h1 class="display-4 text-white mb-4 animated slideInLeft">
-          Baby plan Hosting
-        </h1>
-        <p class="text-white animated slideInLeft">
-          Fast, Secure, & Eco-friendly Shared Hosting Troyhost Shared Hosting
-          minimizes performance issues, offering enhanced speed and robust
-          security solutions for your website.
-        </p>
-        <h1 class="text-white mb-4 animated slideInLeft">
-          <small
-            class="align-top fw-normal"
-            style="font-size: 15px; line-height: 25px"
-            >Starting:</small
-          >
-          <span>Ksh 11,034</span>
-          <small
-            class="align-bottom fw-normal"
-            style="font-size: 15px; line-height: 33px"
-            >/ Yr</small
-          >
-        </h1>
+        <h1
+          id="hero-title"
+          class="display-4 text-white mb-4 animated slideInLeft"
+        ></h1>
+        <p id="hero-description" class="text-white animated slideInLeft"></p>
+        <h1 id="hero-price" class="text-white mb-4 animated slideInLeft"></h1>
         <a
-          href="/purchase/1"
+          id="hero-button"
           class="btn btn-secondary py-sm-3 px-sm-5 me-3 animated slideInLeft"
           >Get Started Now</a
         >

@@ -3,8 +3,10 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const { generateInvoice } = require("../controllers/main");
+const { HostingPlans } = require("../models");
+const { Op, where } = require("sequelize");
+const { title } = require("process");
 
-const filePath = path.join(__dirname, "../data/hostingPlans.json");
 const DATA_FILE = path.join(__dirname, "../data/purchases.json");
 const invoicesFile = path.join(__dirname, "../data/payments.json");
 
@@ -73,6 +75,7 @@ router.get("/admin/purchases/:invoiceId", (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 router.get("/admin/payments", (req, res) => {
   const payments = readInvoiceData();
   console.log(payments);
@@ -191,26 +194,25 @@ router.get("/payment-sucess/:invoiceId", (req, res) => {
   }
 });
 
-router.get("/purchase/:id", (req, res) => {
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send("Failed to load hosting plans");
+router.get("/purchase/:id", async (req, res) => {
+  try {
+    const packageid = req.params.id || req.query.id;
+    console.log("Received request for invoiceId:", packageid);
+    if (!packageid) {
+      console.log("Missing invoice ID");
+      return res.status(400).json({ error: "Missing invoice ID" });
     }
-
-    console.log("Raw JSON data:", req.params.id);
-    const id = Number(req.params.id); // Convert to number
-
-    const packages = JSON.parse(data);
-    console.log("Parsed packages:", packages);
-    const selectedPackage = packages.find((pkg) => pkg.id === id);
-    console.log("Selected package:", selectedPackage);
-
+    const selectedPackage = await HostingPlans.findOne({
+      where: { id: req.params.id },
+    });
     if (!selectedPackage) {
       return res.status(404).send("Package not found");
     }
-
     res.render("purchase", { package: selectedPackage });
-  });
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 router.get("/order-summary/:invoiceId", (req, res) => {
@@ -263,4 +265,64 @@ router.get("/order-summary/:invoiceId", (req, res) => {
   }
 });
 
+router.get("/admin/hostingplans", async (req, res) => {
+  try {
+    const hostingPlans = await HostingPlans.findAll();
+    console.log("Fetched hosting plans:", hostingPlans);
+    res.render("hostingplans", {
+      hostingPlans: hostingPlans,
+      title: "Hosting Plans",
+      message: "Manage your hosting plans here",
+    });
+  } catch (error) {
+    console.error("Error fetching hosting plans:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.put("/admin/hostingplan/:id", async (req, res) => {
+  try {
+    const hostingPlanId = req.params.id;
+    const { name, description, price, currency, per } = req.body;
+    const hostingPlan = await HostingPlans.findOne({
+      where: { id: hostingPlanId },
+    });
+
+    if (!hostingPlan) {
+      return res.status(404).send("Hosting plan not found");
+    }
+    // update plan
+    await hostingPlan.update(
+      {
+        name,
+        description,
+        price,
+        currency,
+        per,
+      },
+      { where: { id: hostingPlanId } }
+    );
+    res.redirect("/admin/hostingplans");
+  } catch (error) {
+    console.error("Error fetching hosting plan:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.post("/admin/hostingplan/delete/:id", async (req, res) => {
+  try {
+    const hostingPlanId = req.params.id;
+    const hostingPlan = await HostingPlans.findOne({
+      where: { id: hostingPlanId },
+    });
+
+    if (!hostingPlan) {
+      return res.status(404).send("Hosting plan not found");
+    }
+    // delete plan
+    await hostingPlan.destroy();
+    res.redirect("/admin/hostingplans");
+  } catch (error) {
+    console.error("Error fetching hosting plan:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = router;

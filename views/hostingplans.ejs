@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      TroyHost | <%= typeof title !== 'undefined' ? title : 'Default Title' %>
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet" />
+    <link
+      href="/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css"
+    />
+
+    <!-- hostingPlan Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .pagination button {
+        padding: 5px 15px;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+      .pagination button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <!-- Spinner End -->
+      <!-- Topbar -->
+      <nav class="navbar navbar-light bg-primary px-4 py-2 text-white">
+        <a class="navbar-brand text-white fw-bold" href="#">
+          <i class="fa fa-server me-2"></i>TroyHost Panel
+        </a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark vh-100 text-white p-3">
+          <h5 class="text-white">Menu</h5>
+          <br />
+          <br />
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/admin/hostingplans"
+                >📄 Hosting Plans</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-10 p-4">
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <h2 class="mb-4 text-center">Available Plans</h2>
+              <% if (hostingPlans && hostingPlans.length > 0) { %>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th colspan="5" class="text-center">
+                        <h4>Hosting Plans</h4>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th colspan="8" class="text-center">
+                        <div class="mb-3">
+                          <input
+                            type="text"
+                            id="searchInput"
+                            class="form-control"
+                            placeholder="Search by name or currency..."
+                            onkeyup="filterTemplates()"
+                          />
+                        </div>
+                      </th>
+                    </tr>
+
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>price (KES)</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% hostingPlans.forEach((hostingPlan, index) => { %>
+                    <tr>
+                      <td><%= hostingPlan.id %></td>
+                      <td><%= hostingPlan.name %></td>
+                      <td><%= hostingPlan.description %></td>
+                      <td><%= hostingPlan.price %></td>
+                      <td>
+                        <a
+                          href="#"
+                          class="btn btn-warning btn-sm me-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editModal"
+                          data-hostingPlan='<%- JSON.stringify(hostingPlan).replace(/'/g, "&#39;") %>'
+                          onclick="populateEditFormFromElement(this)"
+                        >
+                          <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form
+                          action="/admin/hostingplan/delete/<%= hostingPlan.id %>"
+                          method="POST"
+                          class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this hostingPlan?');"
+                        >
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+                <div class="pagination">
+                  <button id="prevPage" onclick="changePage(-1)">
+                    Previous
+                  </button>
+                  <span id="pageNumber">Page 1</span>
+                  <button id="nextPage" onclick="changePage(1)">Next</button>
+                </div>
+              </div>
+              <% } else { %>
+              <thead class="table-light">
+                <tr>
+                  <th colspan="7" class="text-center">
+                    <h4>Templates</h4>
+                  </th>
+                  <th colspan="7" class="text-center">
+                    <h4>
+                      <div class="d-flex justify-content-end mb-3">
+                        <a href="/hostingPlan/upload" class="btn btn-success">
+                          <i class="fas fa-plus"></i> Add hostingPlan
+                        </a>
+                      </div>
+                    </h4>
+                  </th>
+                </tr>
+                <tr>
+                  <th colspan="8" class="text-center">
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control"
+                        placeholder="Search by name or currency..."
+                        onkeyup="filterTemplates()"
+                      />
+                    </div>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th>#</th>
+                  <th>Thumbnail</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>currency</th>
+                  <th>price (KES)</th>
+                  <th>Actions</th>
+
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <p class="text-center text-muted">No templates uploaded yet.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Modal -->
+      <div
+        class="modal fade"
+        id="editModal"
+        tabindex="-1"
+        aria-labelledby="editModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form id="editPlanForm" onsubmit="submitEditForm(event)">
+              <input type="hidden" name="id" id="edit-id" />
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">
+                  Edit Hosting Plan
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="id" id="edit-id" />
+                <div class="mb-3">
+                  <label for="edit-name" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    id="edit-name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="edit-description" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    name="description"
+                    id="edit-description"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="edit-currency" class="form-label">Currency</label>
+                  <select
+                    class="form-control"
+                    id="edit-currency"
+                    name="currency"
+                    required
+                  >
+                    <option value="">Select a currency</option>
+                    <option value="KES">Kenyan Shillings</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="edit-per" class="form-label"
+                    >Billing Period</label
+                  >
+                  <select
+                    class="form-control"
+                    id="edit-per"
+                    name="per"
+                    required
+                  >
+                    <option value="">Select period</option>
+                    <option value="month">Monthly</option>
+                    <option value="year">Yearly</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="edit-price" class="form-label">Price (KES)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="form-control"
+                    name="price"
+                    id="edit-price"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- hostingPlan Javascript -->
+    <script src="/js/main.js"></script>
+    <script>
+      const rowsPerPage = 10;
+      let currentPage = 1;
+
+      // Populate Edit Form
+      function populateEditFormFromElement(button) {
+        const hostingPlan = JSON.parse(button.getAttribute("data-hostingPlan"));
+        document.getElementById("edit-id").value =
+          hostingPlan._id || hostingPlan.id;
+        document.getElementById("edit-name").value = hostingPlan.name;
+        document.getElementById("edit-description").value =
+          hostingPlan.description;
+        document.getElementById("edit-currency").value = hostingPlan.currency;
+        document.getElementById("edit-per").value = hostingPlan.per;
+        document.getElementById("edit-price").value = hostingPlan.price;
+
+        document.getElementById(
+          "editPlanForm"
+        ).action = `/admin/hostingPlan/update/${
+          hostingPlan._id || hostingPlan.id
+        }`;
+
+        console.log("Populating form with:", hostingPlan);
+      }
+
+      // Submit Edit Form
+      async function submitEditForm(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("edit-id").value;
+        const data = {
+          name: document.getElementById("edit-name").value,
+          description: document.getElementById("edit-description").value,
+          currency: document.getElementById("edit-currency").value,
+          per: document.getElementById("edit-per").value,
+          price: document.getElementById("edit-price").value,
+        };
+
+        const response = await fetch(`/admin/hostingplan/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.redirected) {
+          window.location.href = response.url;
+        } else {
+          const result = await response.json();
+          console.error("Error:", result);
+          alert("Failed to update hosting plan");
+        }
+      }
+
+      // Search/Filter
+      function filterTemplates() {
+        const input = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach((row) => {
+          const name = row.getAttribute("data-name").toLowerCase();
+          const currency = row.getAttribute("data-currency").toLowerCase();
+          row.style.display =
+            name.includes(input) || currency.includes(input) ? "" : "none";
+        });
+      }
+
+      // Pagination
+      function displayTablePage() {
+        const rows = document.querySelectorAll("tbody tr");
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        rows.forEach((row, index) => {
+          row.style.display = index >= start && index < end ? "" : "none";
+        });
+
+        document.getElementById("pageNumber").innerText = `Page ${currentPage}`;
+        document.getElementById("prevPage").disabled = currentPage === 1;
+        document.getElementById("nextPage").disabled =
+          currentPage === totalPages;
+      }
+
+      function changePage(direction) {
+        const rows = document.querySelectorAll("tbody tr");
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        currentPage = Math.min(
+          Math.max(currentPage + direction, 1),
+          totalPages
+        );
+        displayTablePage();
+      }
+
+      // Initialize on load
+      window.onload = displayTablePage;
+    </script>
+  </body>
+</html>

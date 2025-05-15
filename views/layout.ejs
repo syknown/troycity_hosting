@@ -316,6 +316,25 @@
 
               plansContainer.innerHTML += planHTML;
             });
+            // Display the first plan (plans[0]) in the hero section
+            const firstPlan = plans[0];
+            if (firstPlan) {
+              document.getElementById(
+                "hero-title"
+              ).innerText = `${firstPlan.name} Hosting`;
+              document.getElementById("hero-description").innerText =
+                firstPlan.description;
+
+              document.getElementById("hero-price").innerHTML = `
+    <small class="align-top fw-normal" style="font-size: 15px; line-height: 25px">Starting:</small>
+    <span>${firstPlan.currency} ${firstPlan.price}</span>
+    <small class="align-bottom fw-normal" style="font-size: 15px; line-height: 33px">/ Yr</small>
+  `;
+
+              document
+                .getElementById("hero-button")
+                .setAttribute("href", `/purchase/${firstPlan.id}`);
+            }
           })
           .catch((error) =>
             console.error("Error fetching hosting plans:", error)

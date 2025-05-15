@@ -4,11 +4,10 @@ const apiRoutes = require("./routes/api");
 const pagesRoutes = require("./routes/index");
 const path = require("path");
 const winston = require("winston");
+const { Sequelize } = require("sequelize");
+const fs = require("fs");
 require("dotenv").config();
-
-// Initialize Express
 const app = express();
-
 // Configure Winston Logger
 const logger = winston.createLogger({
   level: "info", // Levels: error, warn, info, verbose, debug, silly
@@ -23,8 +22,21 @@ const logger = winston.createLogger({
     new winston.transports.Console(), // Log to console
   ],
 });
-
 // Middleware
+const { sequelize } = require("./models");
+// sequelize.sync().then(() => console.log("✅ DB Synced"));
+sequelize
+  .sync({ alter: true })
+  .then(() => console.log("✅ DB Synced with Alter"));
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("✅ DB Connected");
+  })
+  .catch((err) => {
+    console.error("❌ DB Connection Error: ", err);
+  });
+
 app.use(cors());
 app.use(express.json());
 
