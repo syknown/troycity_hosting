@@ -322,16 +322,15 @@
                 plan.id
               }">Buy Now</a>
                 </div>
-                <div class="p-4">
-                  ${plan.features
-                    .map(
-                      (feature) =>
-                        `<p class="border-bottom pb-3">
-                          <i class="fa fa-check text-primary me-3"></i>${feature}
-                        </p>`
-                    )
-                    .join("")}
-                </div>
+               ${(Array.isArray(plan.features) ? plan.features : [])
+                 .map(
+                   (feature) =>
+                     `<p class="border-bottom pb-3">
+        <i class="fa fa-check text-primary me-3"></i>${feature}
+      </p>`
+                 )
+                 .join("")}
+
               </div>
             </div>
           `;
@@ -463,14 +462,12 @@
         .getElementById("footerMessage")
         .addEventListener("submit", async function (event) {
           event.preventDefault(); // Prevent default form submission
-
           // Collect form data
           const formData = {
             name: document.getElementById("customername").value,
             email: document.getElementById("customeremail").value,
             message: document.getElementById("customermessage").value,
           };
-
           try {
             // Send data to API
             const response = await fetch("/api/customer-contact", {
