@@ -110,10 +110,17 @@
                 <%= package.description %>
               </p>
               <ul>
-                <% package.features.forEach(feature => { %>
+                <% if (Array.isArray(package.features)) { %> <%
+                package.features.forEach(feature => { %>
                 <li><%= feature %></li>
-                <% }); %>
+                <% }) %> <% } else if (typeof package.features === 'string') {
+                %> <% package.features.split(',').forEach(feature => { %>
+                <li><%= feature.trim() %></li>
+                <% }) %> <% } else { %>
+                <li>No features listed.</li>
+                <% } %>
               </ul>
+
               <h1 class="text-white mb-4 animated slideInLeft">
                 <small
                   class="align-top fw-normal"
