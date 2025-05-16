@@ -258,25 +258,44 @@
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("load", () => {
+        const plansContainer = document.getElementById("plans");
+        const heroTitle = document.getElementById("hero-title");
+        const heroDescription = document.getElementById("hero-description");
+        const heroPrice = document.getElementById("hero-price");
+        const heroButton = document.getElementById("hero-button");
+
+        if (!plansContainer)
+          return console.error("❌ #plans container not found");
+
+        // Optional loading message
+        plansContainer.innerHTML = `<p>Loading hosting plans...</p>`;
+
         fetch("/api/hosting")
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+          })
           .then((plans) => {
-            let plansContainer = document.getElementById("plans");
-            plansContainer.innerHTML = ""; // Clear existing content
+            if (!Array.isArray(plans) || plans.length === 0) {
+              plansContainer.innerHTML = `<p>No hosting plans available at the moment.</p>`;
+              return;
+            }
+
+            plansContainer.innerHTML = ""; // Clear loading message
 
             plans.forEach((plan, index) => {
-              let borderColor =
+              const borderColor =
                 index === 1 ? "border-secondary" : "border-primary";
-              let icon =
+              const icon =
                 index === 0
                   ? "fa-share-alt"
                   : index === 1
                   ? "fa-server"
                   : "fa-cog";
-              let buttonColor = index === 1 ? "btn-secondary" : "btn-primary";
+              const buttonColor = index === 1 ? "btn-secondary" : "btn-primary";
 
-              let planHTML = `
+              const planHTML = `
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.${
               2 + index
             }s">
@@ -306,64 +325,56 @@
                 <div class="p-4">
                   ${plan.features
                     .map(
-                      (feature) => `<p class="border-bottom pb-3">
-                                      <i class="fa fa-check text-primary me-3"></i>${feature}
-                                    </p>`
+                      (feature) =>
+                        `<p class="border-bottom pb-3">
+                          <i class="fa fa-check text-primary me-3"></i>${feature}
+                        </p>`
                     )
                     .join("")}
                 </div>
               </div>
             </div>
           `;
-
               plansContainer.innerHTML += planHTML;
             });
-            // Display the first plan (plans[0]) in the hero section
+
+            // Update hero section with the first plan
             const firstPlan = plans[0];
             if (firstPlan) {
-              document.getElementById(
-                "hero-title"
-              ).innerText = `${firstPlan.name} Hosting`;
-              document.getElementById("hero-description").innerText =
-                firstPlan.description;
-
-              document.getElementById("hero-price").innerHTML = `
-    <small class="align-top fw-normal" style="font-size: 15px; line-height: 25px">Starting:</small>
-    <span>${firstPlan.currency} ${firstPlan.price}</span>
-    <small class="align-bottom fw-normal" style="font-size: 15px; line-height: 33px">/ Yr</small>
-  `;
-
-              document
-                .getElementById("hero-button")
-                .setAttribute("href", `/purchase/${firstPlan.id}`);
+              if (heroTitle) heroTitle.innerText = `${firstPlan.name} Hosting`;
+              if (heroDescription)
+                heroDescription.innerText = firstPlan.description;
+              if (heroPrice)
+                heroPrice.innerHTML = `
+              <small class="align-top fw-normal" style="font-size: 15px; line-height: 25px">Starting:</small>
+              <span>${firstPlan.currency} ${firstPlan.price}</span>
+              <small class="align-bottom fw-normal" style="font-size: 15px; line-height: 33px">/ Yr</small>
+            `;
+              if (heroButton)
+                heroButton.setAttribute("href", `/purchase/${firstPlan.id}`);
             }
           })
-          .catch((error) =>
-            console.error("Error fetching hosting plans:", error)
-          );
+          .catch((error) => {
+            console.error("❌ Error fetching hosting plans:", error);
+            plansContainer.innerHTML =
+              "<p class='text-danger'>Failed to load hosting plans. Please try again later.</p>";
+          });
       });
+
+      // Domain search logic
       document
         .getElementById("searchBtn")
-        .addEventListener("click", async function () {
-          const domain = document.getElementById("domainInput").value;
-          if (!domain) {
-            alert("Please enter a domain name.");
-            return;
-          }
+        ?.addEventListener("click", async function () {
+          const domain = document.getElementById("domainInput")?.value;
+          if (!domain) return alert("Please enter a domain name.");
 
           try {
             const response = await fetch(`/api/check-domain/${domain}`);
             const data = await response.json();
 
-            if (data.available) {
-              document.getElementById(
-                "result"
-              ).innerHTML = `<p class="text-success">✅ ${domain} is available! You can proceed to register while buying hosting package.</p>`;
-            } else {
-              document.getElementById(
-                "result"
-              ).innerHTML = `<p class="text-danger">❌ ${domain} is already taken. Try another one.</p>`;
-            }
+            document.getElementById("result").innerHTML = data.available
+              ? `<p class="text-success">✅ ${domain} is available! You can proceed to register while buying hosting package.</p>`
+              : `<p class="text-danger">❌ ${domain} is already taken. Try another one.</p>`;
           } catch (error) {
             console.error(error);
             document.getElementById(
@@ -371,12 +382,13 @@
             ).innerHTML = `<p class="text-warning">⚠️ Error checking domain availability.</p>`;
           }
         });
+
+      // Contact form logic
       document
         .getElementById("contactForm")
-        .addEventListener("submit", async function (event) {
-          event.preventDefault(); // Prevent default form submission
+        ?.addEventListener("submit", async function (event) {
+          event.preventDefault();
 
-          // Collect form data
           const formData = {
             name: document.getElementById("name").value,
             email: document.getElementById("email").value,
@@ -385,18 +397,15 @@
           };
 
           try {
-            // Send data to API
             const response = await fetch("/api/customer-contact", {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify(formData),
             });
+
             const result = await response.json();
-            // Show success or error message
             const responseMessage = document.getElementById("responseMessage");
-            alert("Response: " + result.message); // Debugging line
+
             if (result.status === 200 || result.success) {
               responseMessage.innerHTML = `<div class="alert alert-success">Message sent successfully!</div>`;
               document.getElementById("contactForm").reset();
@@ -410,6 +419,7 @@
           }
         });
     </script>
+
     <script>
       //submit news letter form
       document

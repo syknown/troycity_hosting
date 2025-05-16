@@ -22,8 +22,19 @@ const readInvoiceData = () => {
 };
 
 // Route for the homepage
-router.get("/", (req, res) => {
-  res.render("index");
+router.get("/", async (req, res) => {
+  try {
+    const hostingPlans = await HostingPlans.findAll();
+    console.log("Fetched hosting plans:", hostingPlans);
+    res.render("index", {
+      hostingPlans: hostingPlans,
+      title: "Hosting Plans",
+      message: "Manage your hosting plans here",
+    });
+  } catch (error) {
+    console.error("Error fetching hosting plans:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 router.get("/about", (req, res) => {
   res.render("about");
